@@ -1,0 +1,66 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.rain_hello_world.api.services.blocking.companies
+
+import com.rain_hello_world.api.TestServerExtension
+import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_hello_world.api.models.companies.signatures.SignatureRetrievePaymentSignatureParams
+import com.rain_hello_world.api.models.companies.signatures.SignatureRetrieveWithdrawalSignatureParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class SignatureServiceTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrievePaymentSignature() {
+        val client =
+            RainHelloWorldOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val signatureService = client.companies().signatures()
+
+        val issuingSignature =
+            signatureService.retrievePaymentSignature(
+                SignatureRetrievePaymentSignatureParams.builder()
+                    .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .token("token")
+                    .adminAddress("adminAddress")
+                    .amount("amount")
+                    .chainId(0L)
+                    .isAmountNative(true)
+                    .build()
+            )
+
+        issuingSignature.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    fun retrieveWithdrawalSignature() {
+        val client =
+            RainHelloWorldOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val signatureService = client.companies().signatures()
+
+        val issuingSignature =
+            signatureService.retrieveWithdrawalSignature(
+                SignatureRetrieveWithdrawalSignatureParams.builder()
+                    .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .token("token")
+                    .adminAddress("adminAddress")
+                    .amount("amount")
+                    .recipientAddress("recipientAddress")
+                    .chainId(0L)
+                    .isAmountNative(true)
+                    .build()
+            )
+
+        issuingSignature.validate()
+    }
+}
