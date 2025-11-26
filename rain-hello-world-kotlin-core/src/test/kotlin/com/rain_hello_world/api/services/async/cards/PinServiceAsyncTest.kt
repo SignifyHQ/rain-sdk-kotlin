@@ -1,0 +1,55 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.rain_hello_world.api.services.async.cards
+
+import com.rain_hello_world.api.TestServerExtension
+import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClientAsync
+import com.rain_hello_world.api.models.cards.pin.PinRetrieveParams
+import com.rain_hello_world.api.models.cards.pin.PinUpdateParams
+import org.junit.jupiter.api.Disabled
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class PinServiceAsyncTest {
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    suspend fun retrieve() {
+        val client =
+            RainHelloWorldOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val pinServiceAsync = client.cards().pin()
+
+        val pin =
+            pinServiceAsync.retrieve(
+                PinRetrieveParams.builder()
+                    .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                    .sessionId("x")
+                    .build()
+            )
+
+        pin.validate()
+    }
+
+    @Disabled("Prism tests are disabled")
+    @Test
+    suspend fun update() {
+        val client =
+            RainHelloWorldOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val pinServiceAsync = client.cards().pin()
+
+        pinServiceAsync.update(
+            PinUpdateParams.builder()
+                .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                .sessionId("x")
+                .encryptedPin(PinUpdateParams.EncryptedPin.builder().data("data").iv("iv").build())
+                .build()
+        )
+    }
+}
