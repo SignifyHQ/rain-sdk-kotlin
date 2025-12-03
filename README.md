@@ -598,13 +598,13 @@ The SDK uses the standard [OkHttp logging interceptor](https://github.com/square
 Enable logging by setting the `RAIN_HELLO_WORLD_LOG` environment variable to `info`:
 
 ```sh
-$ export RAIN_HELLO_WORLD_LOG=info
+export RAIN_HELLO_WORLD_LOG=info
 ```
 
 Or to `debug` for more verbose logging:
 
 ```sh
-$ export RAIN_HELLO_WORLD_LOG=debug
+export RAIN_HELLO_WORLD_LOG=debug
 ```
 
 ## ProGuard and R8
