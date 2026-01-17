@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":rain-hello-world-kotlin"))
+    implementation(project(":rain-hello-world-kotlin-core"))
+    implementation(project(":rain-hello-world-kotlin-client-okhttp"))
 }
 
 application {
