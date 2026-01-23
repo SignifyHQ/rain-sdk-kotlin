@@ -42,8 +42,6 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The frequency at which the spending limit resets
-     *
      * @throws RainHelloWorldInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
@@ -113,7 +111,6 @@ private constructor(
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
-        /** The frequency at which the spending limit resets */
         fun frequency(frequency: Frequency) = frequency(JsonField.of(frequency))
 
         /**
@@ -193,7 +190,6 @@ private constructor(
     internal fun validity(): Int =
         (if (amount.asKnown() == null) 0 else 1) + (frequency.asKnown()?.validity() ?: 0)
 
-    /** The frequency at which the spending limit resets */
     class Frequency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
