@@ -22,10 +22,8 @@ import com.rain_hello_world.api.errors.RateLimitException
 import com.rain_hello_world.api.errors.UnauthorizedException
 import com.rain_hello_world.api.errors.UnexpectedStatusCodeException
 import com.rain_hello_world.api.errors.UnprocessableEntityException
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
-import com.rain_hello_world.api.models.applications.company.IssuingApplicationPerson
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
-import java.time.LocalDate
+import com.rain_hello_world.api.models.companies.CompanyChargeParams
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
@@ -62,8 +60,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate400() {
-        val companyService = client.applications().company()
+    fun companiesCharge400() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -73,113 +71,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<BadRequestException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -190,8 +90,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate400WithRawResponse() {
-        val companyService = client.applications().company().withRawResponse()
+    fun companiesCharge400WithRawResponse() {
+        val companyService = client.companies().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -201,113 +101,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<BadRequestException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -318,8 +120,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate401() {
-        val companyService = client.applications().company()
+    fun companiesCharge401() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -329,113 +131,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnauthorizedException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -446,8 +150,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate401WithRawResponse() {
-        val companyService = client.applications().company().withRawResponse()
+    fun companiesCharge401WithRawResponse() {
+        val companyService = client.companies().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -457,113 +161,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnauthorizedException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -574,8 +180,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate403() {
-        val companyService = client.applications().company()
+    fun companiesCharge403() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -585,113 +191,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<PermissionDeniedException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -702,8 +210,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate403WithRawResponse() {
-        val companyService = client.applications().company().withRawResponse()
+    fun companiesCharge403WithRawResponse() {
+        val companyService = client.companies().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -713,113 +221,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<PermissionDeniedException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -830,8 +240,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate404() {
-        val companyService = client.applications().company()
+    fun companiesCharge404() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -841,113 +251,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<NotFoundException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -958,8 +270,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate404WithRawResponse() {
-        val companyService = client.applications().company().withRawResponse()
+    fun companiesCharge404WithRawResponse() {
+        val companyService = client.companies().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -969,113 +281,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<NotFoundException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -1086,8 +300,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate422() {
-        val companyService = client.applications().company()
+    fun companiesCharge422() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -1097,113 +311,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnprocessableEntityException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -1214,8 +330,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate422WithRawResponse() {
-        val companyService = client.applications().company().withRawResponse()
+    fun companiesCharge422WithRawResponse() {
+        val companyService = client.companies().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -1225,113 +341,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnprocessableEntityException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -1342,8 +360,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate429() {
-        val companyService = client.applications().company()
+    fun companiesCharge429() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -1353,113 +371,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<RateLimitException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -1470,8 +390,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate429WithRawResponse() {
-        val companyService = client.applications().company().withRawResponse()
+    fun companiesCharge429WithRawResponse() {
+        val companyService = client.companies().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -1481,113 +401,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<RateLimitException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -1598,8 +420,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate500() {
-        val companyService = client.applications().company()
+    fun companiesCharge500() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -1609,113 +431,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<InternalServerException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -1726,8 +450,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate500WithRawResponse() {
-        val companyService = client.applications().company().withRawResponse()
+    fun companiesCharge500WithRawResponse() {
+        val companyService = client.companies().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -1737,113 +461,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<InternalServerException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -1854,8 +480,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate999() {
-        val companyService = client.applications().company()
+    fun companiesCharge999() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -1865,113 +491,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnexpectedStatusCodeException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -1982,8 +510,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreate999WithRawResponse() {
-        val companyService = client.applications().company().withRawResponse()
+    fun companiesCharge999WithRawResponse() {
+        val companyService = client.companies().withRawResponse()
         stubFor(
             post(anyUrl())
                 .willReturn(
@@ -1993,113 +521,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<UnexpectedStatusCodeException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }
@@ -2110,8 +540,8 @@ internal class ErrorHandlingTest {
     }
 
     @Test
-    fun companyCreateInvalidJsonBody() {
-        val companyService = client.applications().company()
+    fun companiesChargeInvalidJsonBody() {
+        val companyService = client.companies()
         stubFor(
             post(anyUrl())
                 .willReturn(status(200).withHeader(HEADER_NAME, HEADER_VALUE).withBody(NOT_JSON))
@@ -2119,113 +549,15 @@ internal class ErrorHandlingTest {
 
         val e =
             assertThrows<RainHelloWorldException> {
-                companyService.create(
-                    CompanyCreateParams.builder()
-                        .address(
-                            PhysicalAddress.builder()
-                                .city("city")
-                                .country("country")
-                                .countryCode("xx")
-                                .line1("line1")
-                                .postalCode("postalCode")
-                                .region("region")
-                                .line2("line2")
-                                .build()
-                        )
-                        .entity(
-                            CompanyCreateParams.Entity.builder()
-                                .name("name")
-                                .registrationNumber("registrationNumber")
-                                .taxId("taxId")
-                                .website("website")
+                companyService.charge(
+                    CompanyChargeParams.builder()
+                        .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+                        .issuingChargeCreateBody(
+                            IssuingChargeCreateBody.builder()
+                                .amount(1L)
                                 .description("description")
-                                .expectedSpend("expectedSpend")
-                                .type("type")
                                 .build()
                         )
-                        .initialUser(
-                            CompanyCreateParams.InitialUser.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .ipAddress("ipAddress")
-                                .isTermsOfServiceAccepted(
-                                    CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE
-                                )
-                                .role("role")
-                                .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                                .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                                .build()
-                        )
-                        .name("name")
-                        .addRepresentative(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .addUltimateBeneficialOwner(
-                            IssuingApplicationPerson.builder()
-                                .address(
-                                    PhysicalAddress.builder()
-                                        .city("city")
-                                        .country("country")
-                                        .countryCode("xx")
-                                        .line1("line1")
-                                        .postalCode("postalCode")
-                                        .region("region")
-                                        .line2("line2")
-                                        .build()
-                                )
-                                .birthDate(LocalDate.parse("2000-01-01"))
-                                .countryOfIssue("xx")
-                                .email("email")
-                                .firstName("firstName")
-                                .lastName("lastName")
-                                .nationalId("nationalId")
-                                .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .phoneCountryCode("1")
-                                .phoneNumber("5555555555")
-                                .build()
-                        )
-                        .chainId("chainId")
-                        .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                        .sourceKey("x")
                         .build()
                 )
             }

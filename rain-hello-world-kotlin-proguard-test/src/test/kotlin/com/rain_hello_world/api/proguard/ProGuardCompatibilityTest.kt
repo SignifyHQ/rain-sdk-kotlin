@@ -5,8 +5,8 @@ package com.rain_hello_world.api.proguard
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
 import com.rain_hello_world.api.core.jsonMapper
-import com.rain_hello_world.api.models.applications.company.IssuingApplication
 import com.rain_hello_world.api.models.cards.IssuingCardStatus
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
 import com.rain_hello_world.api.models.companies.signatures.IssuingSignature
 import kotlin.reflect.full.memberFunctions
 import kotlin.reflect.jvm.javaMethod
@@ -65,41 +65,18 @@ internal class ProGuardCompatibilityTest {
     }
 
     @Test
-    fun issuingApplicationRoundtrip() {
+    fun issuingChargeCreateBodyRoundtrip() {
         val jsonMapper = jsonMapper()
-        val issuingApplication =
-            IssuingApplication.builder()
-                .applicationStatus(IssuingApplication.ApplicationStatus.APPROVED)
-                .applicationCompletionLink(
-                    IssuingApplication.ApplicationCompletionLink.builder()
-                        .url("https://example.com")
-                        .params(
-                            IssuingApplication.ApplicationCompletionLink.Params.builder()
-                                .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .build()
-                        )
-                        .build()
-                )
-                .applicationExternalVerificationLink(
-                    IssuingApplication.ApplicationExternalVerificationLink.builder()
-                        .url("https://example.com")
-                        .params(
-                            IssuingApplication.ApplicationExternalVerificationLink.Params.builder()
-                                .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                                .build()
-                        )
-                        .build()
-                )
-                .applicationReason("applicationReason")
-                .build()
+        val issuingChargeCreateBody =
+            IssuingChargeCreateBody.builder().amount(1L).description("description").build()
 
-        val roundtrippedIssuingApplication =
+        val roundtrippedIssuingChargeCreateBody =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(issuingApplication),
-                jacksonTypeRef<IssuingApplication>(),
+                jsonMapper.writeValueAsString(issuingChargeCreateBody),
+                jacksonTypeRef<IssuingChargeCreateBody>(),
             )
 
-        assertThat(roundtrippedIssuingApplication).isEqualTo(issuingApplication)
+        assertThat(roundtrippedIssuingChargeCreateBody).isEqualTo(issuingChargeCreateBody)
     }
 
     @Test

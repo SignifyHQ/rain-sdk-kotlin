@@ -103,20 +103,20 @@ private constructor(
     /**
      * The base URL to use for every request.
      *
-     * Defaults to the production environment: `https://api-dev.raincards.xyz/v1/issuing`.
+     * Defaults to the dev environment: `https://api-dev.raincards.xyz/v1/issuing`.
      *
      * The following other environments, with dedicated builder methods, are available:
-     * - environment_1: `https://api.raincards.xyz/v1/issuing`
+     * - production: `https://api.raincards.xyz/v1/issuing`
      */
-    fun baseUrl(): String = baseUrl ?: PRODUCTION_URL
+    fun baseUrl(): String = baseUrl ?: DEV_URL
 
     fun toBuilder() = Builder().from(this)
 
     companion object {
 
-        const val PRODUCTION_URL = "https://api-dev.raincards.xyz/v1/issuing"
+        const val DEV_URL = "https://api-dev.raincards.xyz/v1/issuing"
 
-        const val ENVIRONMENT_1_URL = "https://api.raincards.xyz/v1/issuing"
+        const val PRODUCTION_URL = "https://api.raincards.xyz/v1/issuing"
 
         /**
          * Returns a mutable builder for constructing an instance of [ClientOptions].
@@ -221,15 +221,15 @@ private constructor(
         /**
          * The base URL to use for every request.
          *
-         * Defaults to the production environment: `https://api-dev.raincards.xyz/v1/issuing`.
+         * Defaults to the dev environment: `https://api-dev.raincards.xyz/v1/issuing`.
          *
          * The following other environments, with dedicated builder methods, are available:
-         * - environment_1: `https://api.raincards.xyz/v1/issuing`
+         * - production: `https://api.raincards.xyz/v1/issuing`
          */
         fun baseUrl(baseUrl: String?) = apply { this.baseUrl = baseUrl }
 
         /** Sets [baseUrl] to `https://api.raincards.xyz/v1/issuing`. */
-        fun environment1() = baseUrl(ENVIRONMENT_1_URL)
+        fun production() = baseUrl(PRODUCTION_URL)
 
         /**
          * Whether to call `validate` on every response before returning it.

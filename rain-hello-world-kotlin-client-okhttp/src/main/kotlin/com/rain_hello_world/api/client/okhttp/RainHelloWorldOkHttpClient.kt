@@ -141,15 +141,15 @@ class RainHelloWorldOkHttpClient private constructor() {
         /**
          * The base URL to use for every request.
          *
-         * Defaults to the production environment: `https://api-dev.raincards.xyz/v1/issuing`.
+         * Defaults to the dev environment: `https://api-dev.raincards.xyz/v1/issuing`.
          *
          * The following other environments, with dedicated builder methods, are available:
-         * - environment_1: `https://api.raincards.xyz/v1/issuing`
+         * - production: `https://api.raincards.xyz/v1/issuing`
          */
         fun baseUrl(baseUrl: String?) = apply { clientOptions.baseUrl(baseUrl) }
 
         /** Sets [baseUrl] to `https://api.raincards.xyz/v1/issuing`. */
-        fun environment1() = apply { clientOptions.environment1() }
+        fun production() = apply { clientOptions.production() }
 
         /**
          * Whether to call `validate` on every response before returning it.

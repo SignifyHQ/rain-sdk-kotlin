@@ -36,84 +36,22 @@ This library requires Java 8 or later.
 ```kotlin
 import com.rain_hello_world.api.client.RainHelloWorldClient
 import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
-import com.rain_hello_world.api.models.applications.company.IssuingApplicationPerson
-import com.rain_hello_world.api.models.applications.company.IssuingCompany
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
-import java.time.LocalDate
+import com.rain_hello_world.api.models.companies.CompanyChargeParams
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
 
 // Configures using the `rainhelloworld.apiKey` and `rainhelloworld.baseUrl` system properties
 // Or configures using the `RAIN_HELLO_WORLD_API_KEY` and `RAIN_HELLO_WORLD_BASE_URL` environment variables
 val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.fromEnv()
 
-val params: CompanyCreateParams = CompanyCreateParams.builder()
-    .address(PhysicalAddress.builder()
-        .city("city")
-        .country("country")
-        .countryCode("xx")
-        .line1("line1")
-        .postalCode("postalCode")
-        .region("region")
-        .build())
-    .entity(CompanyCreateParams.Entity.builder()
-        .name("name")
-        .registrationNumber("registrationNumber")
-        .taxId("taxId")
-        .website("website")
-        .build())
-    .initialUser(CompanyCreateParams.InitialUser.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .ipAddress("ipAddress")
-        .isTermsOfServiceAccepted(CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE)
-        .build())
-    .name("REPLACE_ME")
-    .addRepresentative(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .build())
-    .addUltimateBeneficialOwner(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
+val params: CompanyChargeParams = CompanyChargeParams.builder()
+    .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+    .issuingChargeCreateBody(IssuingChargeCreateBody.builder()
+        .amount(1L)
+        .description("description")
         .build())
     .build()
-val issuingCompany: IssuingCompany = client.applications().company().create(params)
+val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies().charge(params)
 ```
 
 ## Client configuration
@@ -186,7 +124,7 @@ The `withOptions()` method does not affect the original client or service.
 
 To send a request to the Rain Hello World API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Kotlin class.
 
-For example, `client.applications().company().create(...)` should be called with an instance of `CompanyCreateParams`, and it will return an instance of `IssuingCompany`.
+For example, `client.companies().charge(...)` should be called with an instance of `CompanyChargeParams`, and it will return an instance of `IssuingChargeCreateResponse`.
 
 ## Immutability
 
@@ -203,84 +141,22 @@ The default client is synchronous. To switch to asynchronous execution, call the
 ```kotlin
 import com.rain_hello_world.api.client.RainHelloWorldClient
 import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
-import com.rain_hello_world.api.models.applications.company.IssuingApplicationPerson
-import com.rain_hello_world.api.models.applications.company.IssuingCompany
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
-import java.time.LocalDate
+import com.rain_hello_world.api.models.companies.CompanyChargeParams
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
 
 // Configures using the `rainhelloworld.apiKey` and `rainhelloworld.baseUrl` system properties
 // Or configures using the `RAIN_HELLO_WORLD_API_KEY` and `RAIN_HELLO_WORLD_BASE_URL` environment variables
 val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.fromEnv()
 
-val params: CompanyCreateParams = CompanyCreateParams.builder()
-    .address(PhysicalAddress.builder()
-        .city("city")
-        .country("country")
-        .countryCode("xx")
-        .line1("line1")
-        .postalCode("postalCode")
-        .region("region")
-        .build())
-    .entity(CompanyCreateParams.Entity.builder()
-        .name("name")
-        .registrationNumber("registrationNumber")
-        .taxId("taxId")
-        .website("website")
-        .build())
-    .initialUser(CompanyCreateParams.InitialUser.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .ipAddress("ipAddress")
-        .isTermsOfServiceAccepted(CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE)
-        .build())
-    .name("REPLACE_ME")
-    .addRepresentative(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .build())
-    .addUltimateBeneficialOwner(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
+val params: CompanyChargeParams = CompanyChargeParams.builder()
+    .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+    .issuingChargeCreateBody(IssuingChargeCreateBody.builder()
+        .amount(1L)
+        .description("description")
         .build())
     .build()
-val issuingCompany: IssuingCompany = client.async().applications().company().create(params)
+val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.async().companies().charge(params)
 ```
 
 Or create an asynchronous client from the beginning:
@@ -288,84 +164,22 @@ Or create an asynchronous client from the beginning:
 ```kotlin
 import com.rain_hello_world.api.client.RainHelloWorldClientAsync
 import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClientAsync
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
-import com.rain_hello_world.api.models.applications.company.IssuingApplicationPerson
-import com.rain_hello_world.api.models.applications.company.IssuingCompany
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
-import java.time.LocalDate
+import com.rain_hello_world.api.models.companies.CompanyChargeParams
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
 
 // Configures using the `rainhelloworld.apiKey` and `rainhelloworld.baseUrl` system properties
 // Or configures using the `RAIN_HELLO_WORLD_API_KEY` and `RAIN_HELLO_WORLD_BASE_URL` environment variables
 val client: RainHelloWorldClientAsync = RainHelloWorldOkHttpClientAsync.fromEnv()
 
-val params: CompanyCreateParams = CompanyCreateParams.builder()
-    .address(PhysicalAddress.builder()
-        .city("city")
-        .country("country")
-        .countryCode("xx")
-        .line1("line1")
-        .postalCode("postalCode")
-        .region("region")
-        .build())
-    .entity(CompanyCreateParams.Entity.builder()
-        .name("name")
-        .registrationNumber("registrationNumber")
-        .taxId("taxId")
-        .website("website")
-        .build())
-    .initialUser(CompanyCreateParams.InitialUser.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .ipAddress("ipAddress")
-        .isTermsOfServiceAccepted(CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE)
-        .build())
-    .name("REPLACE_ME")
-    .addRepresentative(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .build())
-    .addUltimateBeneficialOwner(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
+val params: CompanyChargeParams = CompanyChargeParams.builder()
+    .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+    .issuingChargeCreateBody(IssuingChargeCreateBody.builder()
+        .amount(1L)
+        .description("description")
         .build())
     .build()
-val issuingCompany: IssuingCompany = client.applications().company().create(params)
+val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies().charge(params)
 ```
 
 The asynchronous client supports the same options as the synchronous one, except most methods are [suspending](https://kotlinlang.org/docs/coroutines-guide.html).
@@ -479,91 +293,29 @@ To access this data, prefix any HTTP method call on a client or service with `wi
 ```kotlin
 import com.rain_hello_world.api.core.http.Headers
 import com.rain_hello_world.api.core.http.HttpResponseFor
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
-import com.rain_hello_world.api.models.applications.company.IssuingApplicationPerson
-import com.rain_hello_world.api.models.applications.company.IssuingCompany
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
-import java.time.LocalDate
+import com.rain_hello_world.api.models.companies.CompanyChargeParams
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
 
-val params: CompanyCreateParams = CompanyCreateParams.builder()
-    .address(PhysicalAddress.builder()
-        .city("city")
-        .country("country")
-        .countryCode("xx")
-        .line1("line1")
-        .postalCode("postalCode")
-        .region("region")
-        .build())
-    .entity(CompanyCreateParams.Entity.builder()
-        .name("name")
-        .registrationNumber("registrationNumber")
-        .taxId("taxId")
-        .website("website")
-        .build())
-    .initialUser(CompanyCreateParams.InitialUser.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .ipAddress("ipAddress")
-        .isTermsOfServiceAccepted(CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE)
-        .build())
-    .name("REPLACE_ME")
-    .addRepresentative(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .build())
-    .addUltimateBeneficialOwner(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
+val params: CompanyChargeParams = CompanyChargeParams.builder()
+    .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
+    .issuingChargeCreateBody(IssuingChargeCreateBody.builder()
+        .amount(1L)
+        .description("description")
         .build())
     .build()
-val issuingCompany: HttpResponseFor<IssuingCompany> = client.applications().company().withRawResponse().create(params)
+val issuingChargeCreateResponse: HttpResponseFor<IssuingChargeCreateResponse> = client.companies().withRawResponse().charge(params)
 
-val statusCode: Int = issuingCompany.statusCode()
-val headers: Headers = issuingCompany.headers()
+val statusCode: Int = issuingChargeCreateResponse.statusCode()
+val headers: Headers = issuingChargeCreateResponse.headers()
 ```
 
 You can still deserialize the response into an instance of a Kotlin class if needed:
 
 ```kotlin
-import com.rain_hello_world.api.models.applications.company.IssuingCompany
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
 
-val parsedIssuingCompany: IssuingCompany = issuingCompany.parse()
+val parsedIssuingChargeCreateResponse: IssuingChargeCreateResponse = issuingChargeCreateResponse.parse()
 ```
 
 ## Error handling
@@ -661,9 +413,9 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```kotlin
-import com.rain_hello_world.api.models.applications.company.IssuingCompany
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
 
-val issuingCompany: IssuingCompany = client.applications().company().create(
+val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies().charge(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
 )
 ```
@@ -724,7 +476,7 @@ val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
 
 ### Environments
 
-The SDK sends requests to the production by default. To send requests to a different environment, configure the client like so:
+The SDK sends requests to the dev by default. To send requests to a different environment, configure the client like so:
 
 ```kotlin
 import com.rain_hello_world.api.client.RainHelloWorldClient
@@ -732,7 +484,7 @@ import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
 
 val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
     .fromEnv()
-    .environment1()
+    .production()
     .build()
 ```
 
@@ -782,9 +534,9 @@ To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQu
 
 ```kotlin
 import com.rain_hello_world.api.core.JsonValue
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
+import com.rain_hello_world.api.models.companies.CompanyChargeParams
 
-val params: CompanyCreateParams = CompanyCreateParams.builder()
+val params: CompanyChargeParams = CompanyChargeParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
     .putAdditionalQueryParam("secret_query_param", "42")
     .putAdditionalBodyProperty("secretProperty", JsonValue.from("42"))
@@ -812,70 +564,13 @@ These properties can be accessed on the nested built object later using the `_ad
 To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/core/Values.kt) object to its setter:
 
 ```kotlin
-import com.rain_hello_world.api.core.JsonValue
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
-import com.rain_hello_world.api.models.applications.company.IssuingApplicationPerson
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
-import java.time.LocalDate
+import com.rain_hello_world.api.models.companies.CompanyChargeParams
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
 
-val params: CompanyCreateParams = CompanyCreateParams.builder()
-    .address(JsonValue.from(42))
-    .entity(CompanyCreateParams.Entity.builder()
-        .name("name")
-        .registrationNumber("registrationNumber")
-        .taxId("taxId")
-        .website("website")
-        .build())
-    .initialUser(CompanyCreateParams.InitialUser.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .ipAddress("ipAddress")
-        .isTermsOfServiceAccepted(CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE)
-        .build())
-    .name("REPLACE_ME")
-    .addRepresentative(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .build())
-    .addUltimateBeneficialOwner(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
+val params: CompanyChargeParams = CompanyChargeParams.builder()
+    .issuingChargeCreateBody(IssuingChargeCreateBody.builder()
+        .amount(1L)
+        .description("description")
         .build())
     .build()
 ```
@@ -921,70 +616,15 @@ To forcibly omit a required parameter or property, pass [`JsonMissing`](rain-hel
 
 ```kotlin
 import com.rain_hello_world.api.core.JsonMissing
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
-import com.rain_hello_world.api.models.applications.company.IssuingApplicationPerson
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
-import java.time.LocalDate
+import com.rain_hello_world.api.models.companies.CompanyChargeParams
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
 
-val params: CompanyCreateParams = CompanyCreateParams.builder()
-    .entity(CompanyCreateParams.Entity.builder()
-        .name("name")
-        .registrationNumber("registrationNumber")
-        .taxId("taxId")
-        .website("website")
+val params: CompanyChargeParams = CompanyChargeParams.builder()
+    .issuingChargeCreateBody(IssuingChargeCreateBody.builder()
+        .amount(1L)
+        .description("description")
         .build())
-    .initialUser(CompanyCreateParams.InitialUser.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .ipAddress("ipAddress")
-        .isTermsOfServiceAccepted(CompanyCreateParams.InitialUser.IsTermsOfServiceAccepted.TRUE)
-        .build())
-    .name("name")
-    .addRepresentative(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .build())
-    .addUltimateBeneficialOwner(IssuingApplicationPerson.builder()
-        .address(PhysicalAddress.builder()
-            .city("city")
-            .country("country")
-            .countryCode("xx")
-            .line1("line1")
-            .postalCode("postalCode")
-            .region("region")
-            .build())
-        .birthDate(LocalDate.parse("2000-01-01"))
-        .countryOfIssue("xx")
-        .email("email")
-        .firstName("firstName")
-        .lastName("lastName")
-        .nationalId("nationalId")
-        .build())
-    .address(JsonMissing.of())
+    .companyId(JsonMissing.of())
     .build()
 ```
 
@@ -998,7 +638,7 @@ import com.rain_hello_world.api.core.JsonNull
 import com.rain_hello_world.api.core.JsonNumber
 import com.rain_hello_world.api.core.JsonValue
 
-val additionalProperties: Map<String, JsonValue> = client.applications().company().create(params)._additionalProperties()
+val additionalProperties: Map<String, JsonValue> = client.companies().charge(params)._additionalProperties()
 val secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")
 
 val result = when (secretPropertyValue) {
@@ -1014,21 +654,20 @@ To access a property's raw JSON value, which may be undocumented, call its `_` p
 
 ```kotlin
 import com.rain_hello_world.api.core.JsonField
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
 
-val address: JsonField<PhysicalAddress> = client.applications().company().create(params)._address()
+val field: JsonField<Any> = client.companies().charge(params)._field()
 
-if (address.isMissing()) {
+if (field.isMissing()) {
   // The property is absent from the JSON response
-} else if (address.isNull()) {
+} else if (field.isNull()) {
   // The property was set to literal null
 } else {
   // Check if value was provided as a string
   // Other methods include `asNumber()`, `asBoolean()`, etc.
-  val jsonString: String? = address.asString();
+  val jsonString: String? = field.asString();
 
   // Try to deserialize into a custom type
-  val myObject: MyClass = address.asUnknown()!!.convert(MyClass::class.java)
+  val myObject: MyClass = field.asUnknown()!!.convert(MyClass::class.java)
 }
 ```
 
@@ -1041,17 +680,17 @@ By default, the SDK will not throw an exception in this case. It will throw [`Ra
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
-import com.rain_hello_world.api.models.applications.company.IssuingCompany
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
 
-val issuingCompany: IssuingCompany = client.applications().company().create(params).validate()
+val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies().charge(params).validate()
 ```
 
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```kotlin
-import com.rain_hello_world.api.models.applications.company.IssuingCompany
+import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
 
-val issuingCompany: IssuingCompany = client.applications().company().create(
+val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies().charge(
   params, RequestOptions.builder().responseValidation(true).build()
 )
 ```
