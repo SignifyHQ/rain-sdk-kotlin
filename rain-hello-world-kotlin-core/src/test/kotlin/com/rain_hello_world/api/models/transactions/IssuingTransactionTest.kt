@@ -49,7 +49,6 @@ internal class IssuingTransactionTest {
                         .postedAt("postedAt")
                         .build()
                 )
-                .type(IssuingTransaction.UnionMember0.Type.SPEND)
                 .build()
 
         val issuingTransaction = IssuingTransaction.ofUnionMember0(unionMember0)
@@ -96,7 +95,6 @@ internal class IssuingTransactionTest {
                             .postedAt("postedAt")
                             .build()
                     )
-                    .type(IssuingTransaction.UnionMember0.Type.SPEND)
                     .build()
             )
 
