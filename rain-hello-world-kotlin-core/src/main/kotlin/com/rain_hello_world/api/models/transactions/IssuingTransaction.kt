@@ -20,7 +20,6 @@ import com.rain_hello_world.api.core.ExcludeMissing
 import com.rain_hello_world.api.core.JsonField
 import com.rain_hello_world.api.core.JsonMissing
 import com.rain_hello_world.api.core.JsonValue
-import com.rain_hello_world.api.core.allMaxBy
 import com.rain_hello_world.api.core.checkRequired
 import com.rain_hello_world.api.core.getOrThrow
 import com.rain_hello_world.api.errors.RainHelloWorldInvalidDataException
@@ -36,10 +35,10 @@ import java.util.Objects
 @JsonSerialize(using = IssuingTransaction.Serializer::class)
 class IssuingTransaction
 private constructor(
-    private val unionMember0: UnionMember0? = null,
-    private val unionMember1: UnionMember1? = null,
-    private val unionMember2: UnionMember2? = null,
-    private val unionMember3: UnionMember3? = null,
+    private val spend: Spend? = null,
+    private val collateral: Collateral? = null,
+    private val payment: Payment? = null,
+    private val fee: Fee? = null,
     private val _json: JsonValue? = null,
 ) {
 
@@ -47,54 +46,54 @@ private constructor(
      * Represents a transaction of type 'spend'. This includes details such as the transaction
      * amount, merchant, and the associated user.
      */
-    fun unionMember0(): UnionMember0? = unionMember0
+    fun spend(): Spend? = spend
 
     /** Represents a collateral transaction, where a user provides collateral for a transaction. */
-    fun unionMember1(): UnionMember1? = unionMember1
+    fun collateral(): Collateral? = collateral
 
     /**
      * Represents a payment transaction, where a payment is made for a particular service or
      * product.
      */
-    fun unionMember2(): UnionMember2? = unionMember2
+    fun payment(): Payment? = payment
 
     /** Represents a fee transaction, where a fee is charged for a service or product. */
-    fun unionMember3(): UnionMember3? = unionMember3
+    fun fee(): Fee? = fee
 
-    fun isUnionMember0(): Boolean = unionMember0 != null
+    fun isSpend(): Boolean = spend != null
 
-    fun isUnionMember1(): Boolean = unionMember1 != null
+    fun isCollateral(): Boolean = collateral != null
 
-    fun isUnionMember2(): Boolean = unionMember2 != null
+    fun isPayment(): Boolean = payment != null
 
-    fun isUnionMember3(): Boolean = unionMember3 != null
+    fun isFee(): Boolean = fee != null
 
     /**
      * Represents a transaction of type 'spend'. This includes details such as the transaction
      * amount, merchant, and the associated user.
      */
-    fun asUnionMember0(): UnionMember0 = unionMember0.getOrThrow("unionMember0")
+    fun asSpend(): Spend = spend.getOrThrow("spend")
 
     /** Represents a collateral transaction, where a user provides collateral for a transaction. */
-    fun asUnionMember1(): UnionMember1 = unionMember1.getOrThrow("unionMember1")
+    fun asCollateral(): Collateral = collateral.getOrThrow("collateral")
 
     /**
      * Represents a payment transaction, where a payment is made for a particular service or
      * product.
      */
-    fun asUnionMember2(): UnionMember2 = unionMember2.getOrThrow("unionMember2")
+    fun asPayment(): Payment = payment.getOrThrow("payment")
 
     /** Represents a fee transaction, where a fee is charged for a service or product. */
-    fun asUnionMember3(): UnionMember3 = unionMember3.getOrThrow("unionMember3")
+    fun asFee(): Fee = fee.getOrThrow("fee")
 
     fun _json(): JsonValue? = _json
 
     fun <T> accept(visitor: Visitor<T>): T =
         when {
-            unionMember0 != null -> visitor.visitUnionMember0(unionMember0)
-            unionMember1 != null -> visitor.visitUnionMember1(unionMember1)
-            unionMember2 != null -> visitor.visitUnionMember2(unionMember2)
-            unionMember3 != null -> visitor.visitUnionMember3(unionMember3)
+            spend != null -> visitor.visitSpend(spend)
+            collateral != null -> visitor.visitCollateral(collateral)
+            payment != null -> visitor.visitPayment(payment)
+            fee != null -> visitor.visitFee(fee)
             else -> visitor.unknown(_json)
         }
 
@@ -107,20 +106,20 @@ private constructor(
 
         accept(
             object : Visitor<Unit> {
-                override fun visitUnionMember0(unionMember0: UnionMember0) {
-                    unionMember0.validate()
+                override fun visitSpend(spend: Spend) {
+                    spend.validate()
                 }
 
-                override fun visitUnionMember1(unionMember1: UnionMember1) {
-                    unionMember1.validate()
+                override fun visitCollateral(collateral: Collateral) {
+                    collateral.validate()
                 }
 
-                override fun visitUnionMember2(unionMember2: UnionMember2) {
-                    unionMember2.validate()
+                override fun visitPayment(payment: Payment) {
+                    payment.validate()
                 }
 
-                override fun visitUnionMember3(unionMember3: UnionMember3) {
-                    unionMember3.validate()
+                override fun visitFee(fee: Fee) {
+                    fee.validate()
                 }
             }
         )
@@ -143,13 +142,13 @@ private constructor(
     internal fun validity(): Int =
         accept(
             object : Visitor<Int> {
-                override fun visitUnionMember0(unionMember0: UnionMember0) = unionMember0.validity()
+                override fun visitSpend(spend: Spend) = spend.validity()
 
-                override fun visitUnionMember1(unionMember1: UnionMember1) = unionMember1.validity()
+                override fun visitCollateral(collateral: Collateral) = collateral.validity()
 
-                override fun visitUnionMember2(unionMember2: UnionMember2) = unionMember2.validity()
+                override fun visitPayment(payment: Payment) = payment.validity()
 
-                override fun visitUnionMember3(unionMember3: UnionMember3) = unionMember3.validity()
+                override fun visitFee(fee: Fee) = fee.validity()
 
                 override fun unknown(json: JsonValue?) = 0
             }
@@ -161,21 +160,20 @@ private constructor(
         }
 
         return other is IssuingTransaction &&
-            unionMember0 == other.unionMember0 &&
-            unionMember1 == other.unionMember1 &&
-            unionMember2 == other.unionMember2 &&
-            unionMember3 == other.unionMember3
+            spend == other.spend &&
+            collateral == other.collateral &&
+            payment == other.payment &&
+            fee == other.fee
     }
 
-    override fun hashCode(): Int =
-        Objects.hash(unionMember0, unionMember1, unionMember2, unionMember3)
+    override fun hashCode(): Int = Objects.hash(spend, collateral, payment, fee)
 
     override fun toString(): String =
         when {
-            unionMember0 != null -> "IssuingTransaction{unionMember0=$unionMember0}"
-            unionMember1 != null -> "IssuingTransaction{unionMember1=$unionMember1}"
-            unionMember2 != null -> "IssuingTransaction{unionMember2=$unionMember2}"
-            unionMember3 != null -> "IssuingTransaction{unionMember3=$unionMember3}"
+            spend != null -> "IssuingTransaction{spend=$spend}"
+            collateral != null -> "IssuingTransaction{collateral=$collateral}"
+            payment != null -> "IssuingTransaction{payment=$payment}"
+            fee != null -> "IssuingTransaction{fee=$fee}"
             _json != null -> "IssuingTransaction{_unknown=$_json}"
             else -> throw IllegalStateException("Invalid IssuingTransaction")
         }
@@ -186,25 +184,21 @@ private constructor(
          * Represents a transaction of type 'spend'. This includes details such as the transaction
          * amount, merchant, and the associated user.
          */
-        fun ofUnionMember0(unionMember0: UnionMember0) =
-            IssuingTransaction(unionMember0 = unionMember0)
+        fun ofSpend(spend: Spend) = IssuingTransaction(spend = spend)
 
         /**
          * Represents a collateral transaction, where a user provides collateral for a transaction.
          */
-        fun ofUnionMember1(unionMember1: UnionMember1) =
-            IssuingTransaction(unionMember1 = unionMember1)
+        fun ofCollateral(collateral: Collateral) = IssuingTransaction(collateral = collateral)
 
         /**
          * Represents a payment transaction, where a payment is made for a particular service or
          * product.
          */
-        fun ofUnionMember2(unionMember2: UnionMember2) =
-            IssuingTransaction(unionMember2 = unionMember2)
+        fun ofPayment(payment: Payment) = IssuingTransaction(payment = payment)
 
         /** Represents a fee transaction, where a fee is charged for a service or product. */
-        fun ofUnionMember3(unionMember3: UnionMember3) =
-            IssuingTransaction(unionMember3 = unionMember3)
+        fun ofFee(fee: Fee) = IssuingTransaction(fee = fee)
     }
 
     /**
@@ -217,21 +211,21 @@ private constructor(
          * Represents a transaction of type 'spend'. This includes details such as the transaction
          * amount, merchant, and the associated user.
          */
-        fun visitUnionMember0(unionMember0: UnionMember0): T
+        fun visitSpend(spend: Spend): T
 
         /**
          * Represents a collateral transaction, where a user provides collateral for a transaction.
          */
-        fun visitUnionMember1(unionMember1: UnionMember1): T
+        fun visitCollateral(collateral: Collateral): T
 
         /**
          * Represents a payment transaction, where a payment is made for a particular service or
          * product.
          */
-        fun visitUnionMember2(unionMember2: UnionMember2): T
+        fun visitPayment(payment: Payment): T
 
         /** Represents a fee transaction, where a fee is charged for a service or product. */
-        fun visitUnionMember3(unionMember3: UnionMember3): T
+        fun visitFee(fee: Fee): T
 
         /**
          * Maps an unknown variant of [IssuingTransaction] to a value of type [T].
@@ -252,34 +246,32 @@ private constructor(
 
         override fun ObjectCodec.deserialize(node: JsonNode): IssuingTransaction {
             val json = JsonValue.fromJsonNode(node)
+            val type = json.asObject()?.get("type")?.asString()
 
-            val bestMatches =
-                sequenceOf(
-                        tryDeserialize(node, jacksonTypeRef<UnionMember0>())?.let {
-                            IssuingTransaction(unionMember0 = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<UnionMember1>())?.let {
-                            IssuingTransaction(unionMember1 = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<UnionMember2>())?.let {
-                            IssuingTransaction(unionMember2 = it, _json = json)
-                        },
-                        tryDeserialize(node, jacksonTypeRef<UnionMember3>())?.let {
-                            IssuingTransaction(unionMember3 = it, _json = json)
-                        },
-                    )
-                    .filterNotNull()
-                    .allMaxBy { it.validity() }
-                    .toList()
-            return when (bestMatches.size) {
-                // This can happen if what we're deserializing is completely incompatible with all
-                // the possible variants (e.g. deserializing from boolean).
-                0 -> IssuingTransaction(_json = json)
-                1 -> bestMatches.single()
-                // If there's more than one match with the highest validity, then use the first
-                // completely valid match, or simply the first match if none are completely valid.
-                else -> bestMatches.firstOrNull { it.isValid() } ?: bestMatches.first()
+            when (type) {
+                "spend" -> {
+                    return tryDeserialize(node, jacksonTypeRef<Spend>())?.let {
+                        IssuingTransaction(spend = it, _json = json)
+                    } ?: IssuingTransaction(_json = json)
+                }
+                "collateral" -> {
+                    return tryDeserialize(node, jacksonTypeRef<Collateral>())?.let {
+                        IssuingTransaction(collateral = it, _json = json)
+                    } ?: IssuingTransaction(_json = json)
+                }
+                "payment" -> {
+                    return tryDeserialize(node, jacksonTypeRef<Payment>())?.let {
+                        IssuingTransaction(payment = it, _json = json)
+                    } ?: IssuingTransaction(_json = json)
+                }
+                "fee" -> {
+                    return tryDeserialize(node, jacksonTypeRef<Fee>())?.let {
+                        IssuingTransaction(fee = it, _json = json)
+                    } ?: IssuingTransaction(_json = json)
+                }
             }
+
+            return IssuingTransaction(_json = json)
         }
     }
 
@@ -291,10 +283,10 @@ private constructor(
             provider: SerializerProvider,
         ) {
             when {
-                value.unionMember0 != null -> generator.writeObject(value.unionMember0)
-                value.unionMember1 != null -> generator.writeObject(value.unionMember1)
-                value.unionMember2 != null -> generator.writeObject(value.unionMember2)
-                value.unionMember3 != null -> generator.writeObject(value.unionMember3)
+                value.spend != null -> generator.writeObject(value.spend)
+                value.collateral != null -> generator.writeObject(value.collateral)
+                value.payment != null -> generator.writeObject(value.payment)
+                value.fee != null -> generator.writeObject(value.fee)
                 value._json != null -> generator.writeObject(value._json)
                 else -> throw IllegalStateException("Invalid IssuingTransaction")
             }
@@ -305,11 +297,11 @@ private constructor(
      * Represents a transaction of type 'spend'. This includes details such as the transaction
      * amount, merchant, and the associated user.
      */
-    class UnionMember0
+    class Spend
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
-        private val spend: JsonField<Spend>,
+        private val spend: JsonField<InnerSpend>,
         private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -317,7 +309,7 @@ private constructor(
         @JsonCreator
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("spend") @ExcludeMissing spend: JsonField<Spend> = JsonMissing.of(),
+            @JsonProperty("spend") @ExcludeMissing spend: JsonField<InnerSpend> = JsonMissing.of(),
             @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         ) : this(id, spend, type, mutableMapOf())
 
@@ -336,7 +328,7 @@ private constructor(
          * @throws RainHelloWorldInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun spend(): Spend = spend.getRequired("spend")
+        fun spend(): InnerSpend = spend.getRequired("spend")
 
         /**
          * The type of transaction
@@ -363,7 +355,7 @@ private constructor(
          *
          * Unlike [spend], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("spend") @ExcludeMissing fun _spend(): JsonField<Spend> = spend
+        @JsonProperty("spend") @ExcludeMissing fun _spend(): JsonField<InnerSpend> = spend
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -380,7 +372,7 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [UnionMember0].
+             * Returns a mutable builder for constructing an instance of [Spend].
              *
              * The following fields are required:
              * ```kotlin
@@ -391,19 +383,19 @@ private constructor(
             fun builder() = Builder()
         }
 
-        /** A builder for [UnionMember0]. */
+        /** A builder for [Spend]. */
         class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
-            private var spend: JsonField<Spend>? = null
+            private var spend: JsonField<InnerSpend>? = null
             private var type: JsonValue = JsonValue.from("spend")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(unionMember0: UnionMember0) = apply {
-                id = unionMember0.id
-                spend = unionMember0.spend
-                type = unionMember0.type
-                additionalProperties = unionMember0.additionalProperties.toMutableMap()
+            internal fun from(spend: Spend) = apply {
+                id = spend.id
+                this.spend = spend.spend
+                type = spend.type
+                additionalProperties = spend.additionalProperties.toMutableMap()
             }
 
             /** The unique identifier of the transaction */
@@ -422,16 +414,16 @@ private constructor(
              * Details specific to a spend transaction, including merchant, amount, and user
              * information.
              */
-            fun spend(spend: Spend) = spend(JsonField.of(spend))
+            fun spend(spend: InnerSpend) = spend(JsonField.of(spend))
 
             /**
              * Sets [Builder.spend] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.spend] with a well-typed [Spend] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.spend] with a well-typed [InnerSpend] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun spend(spend: JsonField<Spend>) = apply { this.spend = spend }
+            fun spend(spend: JsonField<InnerSpend>) = apply { this.spend = spend }
 
             /**
              * Sets the field to an arbitrary JSON value.
@@ -467,7 +459,7 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [UnionMember0].
+             * Returns an immutable instance of [Spend].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
@@ -479,8 +471,8 @@ private constructor(
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): UnionMember0 =
-                UnionMember0(
+            fun build(): Spend =
+                Spend(
                     checkRequired("id", id),
                     checkRequired("spend", spend),
                     type,
@@ -490,7 +482,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): UnionMember0 = apply {
+        fun validate(): Spend = apply {
             if (validated) {
                 return@apply
             }
@@ -528,7 +520,7 @@ private constructor(
          * Details specific to a spend transaction, including merchant, amount, and user
          * information.
          */
-        class Spend
+        class InnerSpend
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
@@ -1123,7 +1115,7 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Spend].
+                 * Returns a mutable builder for constructing an instance of [InnerSpend].
                  *
                  * The following fields are required:
                  * ```kotlin
@@ -1146,7 +1138,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            /** A builder for [Spend]. */
+            /** A builder for [InnerSpend]. */
             class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
@@ -1176,33 +1168,33 @@ private constructor(
                 private var postedAt: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(spend: Spend) = apply {
-                    amount = spend.amount
-                    authorizedAt = spend.authorizedAt
-                    cardId = spend.cardId
-                    cardType = spend.cardType
-                    currency = spend.currency
-                    merchantCategory = spend.merchantCategory
-                    merchantCategoryCode = spend.merchantCategoryCode
-                    merchantName = spend.merchantName
-                    receipt = spend.receipt
-                    status = spend.status
-                    userEmail = spend.userEmail
-                    userFirstName = spend.userFirstName
-                    userId = spend.userId
-                    userLastName = spend.userLastName
-                    authorizationMethod = spend.authorizationMethod
-                    authorizedAmount = spend.authorizedAmount
-                    companyId = spend.companyId
-                    declinedReason = spend.declinedReason
-                    enrichedMerchantCategory = spend.enrichedMerchantCategory
-                    enrichedMerchantIcon = spend.enrichedMerchantIcon
-                    enrichedMerchantName = spend.enrichedMerchantName
-                    localAmount = spend.localAmount
-                    localCurrency = spend.localCurrency
-                    memo = spend.memo
-                    postedAt = spend.postedAt
-                    additionalProperties = spend.additionalProperties.toMutableMap()
+                internal fun from(innerSpend: InnerSpend) = apply {
+                    amount = innerSpend.amount
+                    authorizedAt = innerSpend.authorizedAt
+                    cardId = innerSpend.cardId
+                    cardType = innerSpend.cardType
+                    currency = innerSpend.currency
+                    merchantCategory = innerSpend.merchantCategory
+                    merchantCategoryCode = innerSpend.merchantCategoryCode
+                    merchantName = innerSpend.merchantName
+                    receipt = innerSpend.receipt
+                    status = innerSpend.status
+                    userEmail = innerSpend.userEmail
+                    userFirstName = innerSpend.userFirstName
+                    userId = innerSpend.userId
+                    userLastName = innerSpend.userLastName
+                    authorizationMethod = innerSpend.authorizationMethod
+                    authorizedAmount = innerSpend.authorizedAmount
+                    companyId = innerSpend.companyId
+                    declinedReason = innerSpend.declinedReason
+                    enrichedMerchantCategory = innerSpend.enrichedMerchantCategory
+                    enrichedMerchantIcon = innerSpend.enrichedMerchantIcon
+                    enrichedMerchantName = innerSpend.enrichedMerchantName
+                    localAmount = innerSpend.localAmount
+                    localCurrency = innerSpend.localCurrency
+                    memo = innerSpend.memo
+                    postedAt = innerSpend.postedAt
+                    additionalProperties = innerSpend.additionalProperties.toMutableMap()
                 }
 
                 /** The amount of the transaction, in cents */
@@ -1566,7 +1558,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Spend].
+                 * Returns an immutable instance of [InnerSpend].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -1590,8 +1582,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Spend =
-                    Spend(
+                fun build(): InnerSpend =
+                    InnerSpend(
                         checkRequired("amount", amount),
                         checkRequired("authorizedAt", authorizedAt),
                         checkRequired("cardId", cardId),
@@ -1623,7 +1615,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Spend = apply {
+            fun validate(): InnerSpend = apply {
                 if (validated) {
                     return@apply
                 }
@@ -1976,7 +1968,7 @@ private constructor(
                     return true
                 }
 
-                return other is Spend &&
+                return other is InnerSpend &&
                     amount == other.amount &&
                     authorizedAt == other.authorizedAt &&
                     cardId == other.cardId &&
@@ -2039,7 +2031,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Spend{amount=$amount, authorizedAt=$authorizedAt, cardId=$cardId, cardType=$cardType, currency=$currency, merchantCategory=$merchantCategory, merchantCategoryCode=$merchantCategoryCode, merchantName=$merchantName, receipt=$receipt, status=$status, userEmail=$userEmail, userFirstName=$userFirstName, userId=$userId, userLastName=$userLastName, authorizationMethod=$authorizationMethod, authorizedAmount=$authorizedAmount, companyId=$companyId, declinedReason=$declinedReason, enrichedMerchantCategory=$enrichedMerchantCategory, enrichedMerchantIcon=$enrichedMerchantIcon, enrichedMerchantName=$enrichedMerchantName, localAmount=$localAmount, localCurrency=$localCurrency, memo=$memo, postedAt=$postedAt, additionalProperties=$additionalProperties}"
+                "InnerSpend{amount=$amount, authorizedAt=$authorizedAt, cardId=$cardId, cardType=$cardType, currency=$currency, merchantCategory=$merchantCategory, merchantCategoryCode=$merchantCategoryCode, merchantName=$merchantName, receipt=$receipt, status=$status, userEmail=$userEmail, userFirstName=$userFirstName, userId=$userId, userLastName=$userLastName, authorizationMethod=$authorizationMethod, authorizedAmount=$authorizedAmount, companyId=$companyId, declinedReason=$declinedReason, enrichedMerchantCategory=$enrichedMerchantCategory, enrichedMerchantIcon=$enrichedMerchantIcon, enrichedMerchantName=$enrichedMerchantName, localAmount=$localAmount, localCurrency=$localCurrency, memo=$memo, postedAt=$postedAt, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -2047,7 +2039,7 @@ private constructor(
                 return true
             }
 
-            return other is UnionMember0 &&
+            return other is Spend &&
                 id == other.id &&
                 spend == other.spend &&
                 type == other.type &&
@@ -2059,16 +2051,16 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "UnionMember0{id=$id, spend=$spend, type=$type, additionalProperties=$additionalProperties}"
+            "Spend{id=$id, spend=$spend, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /** Represents a collateral transaction, where a user provides collateral for a transaction. */
-    class UnionMember1
+    class Collateral
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
-        private val collateral: JsonField<Collateral>,
-        private val type: JsonField<Type>,
+        private val collateral: JsonField<InnerCollateral>,
+        private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -2077,8 +2069,8 @@ private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
             @JsonProperty("collateral")
             @ExcludeMissing
-            collateral: JsonField<Collateral> = JsonMissing.of(),
-            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            collateral: JsonField<InnerCollateral> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         ) : this(id, collateral, type, mutableMapOf())
 
         /**
@@ -2096,15 +2088,20 @@ private constructor(
          * @throws RainHelloWorldInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun collateral(): Collateral = collateral.getRequired("collateral")
+        fun collateral(): InnerCollateral = collateral.getRequired("collateral")
 
         /**
          * The type of transaction, in this case, a collateral transaction
          *
-         * @throws RainHelloWorldInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * Expected to always return the following:
+         * ```kotlin
+         * JsonValue.from("collateral")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
          */
-        fun type(): Type = type.getRequired("type")
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
          * Returns the raw JSON value of [id].
@@ -2120,14 +2117,7 @@ private constructor(
          */
         @JsonProperty("collateral")
         @ExcludeMissing
-        fun _collateral(): JsonField<Collateral> = collateral
-
-        /**
-         * Returns the raw JSON value of [type].
-         *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+        fun _collateral(): JsonField<InnerCollateral> = collateral
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -2144,31 +2134,30 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [UnionMember1].
+             * Returns a mutable builder for constructing an instance of [Collateral].
              *
              * The following fields are required:
              * ```kotlin
              * .id()
              * .collateral()
-             * .type()
              * ```
              */
             fun builder() = Builder()
         }
 
-        /** A builder for [UnionMember1]. */
+        /** A builder for [Collateral]. */
         class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
-            private var collateral: JsonField<Collateral>? = null
-            private var type: JsonField<Type>? = null
+            private var collateral: JsonField<InnerCollateral>? = null
+            private var type: JsonValue = JsonValue.from("collateral")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(unionMember1: UnionMember1) = apply {
-                id = unionMember1.id
-                collateral = unionMember1.collateral
-                type = unionMember1.type
-                additionalProperties = unionMember1.additionalProperties.toMutableMap()
+            internal fun from(collateral: Collateral) = apply {
+                id = collateral.id
+                this.collateral = collateral.collateral
+                type = collateral.type
+                additionalProperties = collateral.additionalProperties.toMutableMap()
             }
 
             /** The unique identifier of the transaction */
@@ -2187,30 +2176,32 @@ private constructor(
              * Details of the collateral transaction, including amount, currency, and transaction
              * details.
              */
-            fun collateral(collateral: Collateral) = collateral(JsonField.of(collateral))
+            fun collateral(collateral: InnerCollateral) = collateral(JsonField.of(collateral))
 
             /**
              * Sets [Builder.collateral] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.collateral] with a well-typed [Collateral] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.collateral] with a well-typed [InnerCollateral]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun collateral(collateral: JsonField<Collateral>) = apply {
+            fun collateral(collateral: JsonField<InnerCollateral>) = apply {
                 this.collateral = collateral
             }
 
-            /** The type of transaction, in this case, a collateral transaction */
-            fun type(type: Type) = type(JsonField.of(type))
-
             /**
-             * Sets [Builder.type] to an arbitrary JSON value.
+             * Sets the field to an arbitrary JSON value.
              *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```kotlin
+             * JsonValue.from("collateral")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
+            fun type(type: JsonValue) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -2232,7 +2223,7 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [UnionMember1].
+             * Returns an immutable instance of [Collateral].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
@@ -2240,30 +2231,33 @@ private constructor(
              * ```kotlin
              * .id()
              * .collateral()
-             * .type()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): UnionMember1 =
-                UnionMember1(
+            fun build(): Collateral =
+                Collateral(
                     checkRequired("id", id),
                     checkRequired("collateral", collateral),
-                    checkRequired("type", type),
+                    type,
                     additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
-        fun validate(): UnionMember1 = apply {
+        fun validate(): Collateral = apply {
             if (validated) {
                 return@apply
             }
 
             id()
             collateral().validate()
-            type().validate()
+            _type().let {
+                if (it != JsonValue.from("collateral")) {
+                    throw RainHelloWorldInvalidDataException("'type' is invalid, received $it")
+                }
+            }
             validated = true
         }
 
@@ -2284,13 +2278,13 @@ private constructor(
         internal fun validity(): Int =
             (if (id.asKnown() == null) 0 else 1) +
                 (collateral.asKnown()?.validity() ?: 0) +
-                (type.asKnown()?.validity() ?: 0)
+                type.let { if (it == JsonValue.from("collateral")) 1 else 0 }
 
         /**
          * Details of the collateral transaction, including amount, currency, and transaction
          * details.
          */
-        class Collateral
+        class InnerCollateral
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Double>,
@@ -2511,7 +2505,7 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Collateral].
+                 * Returns a mutable builder for constructing an instance of [InnerCollateral].
                  *
                  * The following fields are required:
                  * ```kotlin
@@ -2525,7 +2519,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            /** A builder for [Collateral]. */
+            /** A builder for [InnerCollateral]. */
             class Builder internal constructor() {
 
                 private var amount: JsonField<Double>? = null
@@ -2539,17 +2533,17 @@ private constructor(
                 private var userId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(collateral: Collateral) = apply {
-                    amount = collateral.amount
-                    chainId = collateral.chainId
-                    currency = collateral.currency
-                    transactionHash = collateral.transactionHash
-                    walletAddress = collateral.walletAddress
-                    companyId = collateral.companyId
-                    memo = collateral.memo
-                    postedAt = collateral.postedAt
-                    userId = collateral.userId
-                    additionalProperties = collateral.additionalProperties.toMutableMap()
+                internal fun from(innerCollateral: InnerCollateral) = apply {
+                    amount = innerCollateral.amount
+                    chainId = innerCollateral.chainId
+                    currency = innerCollateral.currency
+                    transactionHash = innerCollateral.transactionHash
+                    walletAddress = innerCollateral.walletAddress
+                    companyId = innerCollateral.companyId
+                    memo = innerCollateral.memo
+                    postedAt = innerCollateral.postedAt
+                    userId = innerCollateral.userId
+                    additionalProperties = innerCollateral.additionalProperties.toMutableMap()
                 }
 
                 /** The amount of the collateral transaction, in cents */
@@ -2691,7 +2685,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Collateral].
+                 * Returns an immutable instance of [InnerCollateral].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -2706,8 +2700,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Collateral =
-                    Collateral(
+                fun build(): InnerCollateral =
+                    InnerCollateral(
                         checkRequired("amount", amount),
                         checkRequired("chainId", chainId),
                         checkRequired("currency", currency),
@@ -2723,7 +2717,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Collateral = apply {
+            fun validate(): InnerCollateral = apply {
                 if (validated) {
                     return@apply
                 }
@@ -2770,7 +2764,7 @@ private constructor(
                     return true
                 }
 
-                return other is Collateral &&
+                return other is InnerCollateral &&
                     amount == other.amount &&
                     chainId == other.chainId &&
                     currency == other.currency &&
@@ -2801,128 +2795,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Collateral{amount=$amount, chainId=$chainId, currency=$currency, transactionHash=$transactionHash, walletAddress=$walletAddress, companyId=$companyId, memo=$memo, postedAt=$postedAt, userId=$userId, additionalProperties=$additionalProperties}"
-        }
-
-        /** The type of transaction, in this case, a collateral transaction */
-        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                val COLLATERAL = of("collateral")
-
-                fun of(value: String) = Type(JsonField.of(value))
-            }
-
-            /** An enum containing [Type]'s known values. */
-            enum class Known {
-                COLLATERAL
-            }
-
-            /**
-             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Type] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                COLLATERAL,
-                /** An enum member indicating that [Type] was instantiated with an unknown value. */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    COLLATERAL -> Value.COLLATERAL
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws RainHelloWorldInvalidDataException if this class instance's value is a not a
-             *   known member.
-             */
-            fun known(): Known =
-                when (this) {
-                    COLLATERAL -> Known.COLLATERAL
-                    else -> throw RainHelloWorldInvalidDataException("Unknown Type: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws RainHelloWorldInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw RainHelloWorldInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            fun validate(): Type = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: RainHelloWorldInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Type && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
+                "InnerCollateral{amount=$amount, chainId=$chainId, currency=$currency, transactionHash=$transactionHash, walletAddress=$walletAddress, companyId=$companyId, memo=$memo, postedAt=$postedAt, userId=$userId, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -2930,7 +2803,7 @@ private constructor(
                 return true
             }
 
-            return other is UnionMember1 &&
+            return other is Collateral &&
                 id == other.id &&
                 collateral == other.collateral &&
                 type == other.type &&
@@ -2944,27 +2817,29 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "UnionMember1{id=$id, collateral=$collateral, type=$type, additionalProperties=$additionalProperties}"
+            "Collateral{id=$id, collateral=$collateral, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /**
      * Represents a payment transaction, where a payment is made for a particular service or
      * product.
      */
-    class UnionMember2
+    class Payment
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
-        private val payment: JsonField<Payment>,
-        private val type: JsonField<Type>,
+        private val payment: JsonField<InnerPayment>,
+        private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("payment") @ExcludeMissing payment: JsonField<Payment> = JsonMissing.of(),
-            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            @JsonProperty("payment")
+            @ExcludeMissing
+            payment: JsonField<InnerPayment> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         ) : this(id, payment, type, mutableMapOf())
 
         /**
@@ -2981,15 +2856,20 @@ private constructor(
          * @throws RainHelloWorldInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun payment(): Payment = payment.getRequired("payment")
+        fun payment(): InnerPayment = payment.getRequired("payment")
 
         /**
          * The type of transaction
          *
-         * @throws RainHelloWorldInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * Expected to always return the following:
+         * ```kotlin
+         * JsonValue.from("payment")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
          */
-        fun type(): Type = type.getRequired("type")
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
          * Returns the raw JSON value of [id].
@@ -3003,14 +2883,7 @@ private constructor(
          *
          * Unlike [payment], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("payment") @ExcludeMissing fun _payment(): JsonField<Payment> = payment
-
-        /**
-         * Returns the raw JSON value of [type].
-         *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+        @JsonProperty("payment") @ExcludeMissing fun _payment(): JsonField<InnerPayment> = payment
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3027,31 +2900,30 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [UnionMember2].
+             * Returns a mutable builder for constructing an instance of [Payment].
              *
              * The following fields are required:
              * ```kotlin
              * .id()
              * .payment()
-             * .type()
              * ```
              */
             fun builder() = Builder()
         }
 
-        /** A builder for [UnionMember2]. */
+        /** A builder for [Payment]. */
         class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
-            private var payment: JsonField<Payment>? = null
-            private var type: JsonField<Type>? = null
+            private var payment: JsonField<InnerPayment>? = null
+            private var type: JsonValue = JsonValue.from("payment")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(unionMember2: UnionMember2) = apply {
-                id = unionMember2.id
-                payment = unionMember2.payment
-                type = unionMember2.type
-                additionalProperties = unionMember2.additionalProperties.toMutableMap()
+            internal fun from(payment: Payment) = apply {
+                id = payment.id
+                this.payment = payment.payment
+                type = payment.type
+                additionalProperties = payment.additionalProperties.toMutableMap()
             }
 
             /** The unique identifier of the payment transaction */
@@ -3067,28 +2939,30 @@ private constructor(
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Details of the payment transaction, including amount, currency, and status. */
-            fun payment(payment: Payment) = payment(JsonField.of(payment))
+            fun payment(payment: InnerPayment) = payment(JsonField.of(payment))
 
             /**
              * Sets [Builder.payment] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.payment] with a well-typed [Payment] value instead.
+             * You should usually call [Builder.payment] with a well-typed [InnerPayment] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun payment(payment: JsonField<InnerPayment>) = apply { this.payment = payment }
+
+            /**
+             * Sets the field to an arbitrary JSON value.
+             *
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```kotlin
+             * JsonValue.from("payment")
+             * ```
+             *
              * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun payment(payment: JsonField<Payment>) = apply { this.payment = payment }
-
-            /** The type of transaction */
-            fun type(type: Type) = type(JsonField.of(type))
-
-            /**
-             * Sets [Builder.type] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
+            fun type(type: JsonValue) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3110,7 +2984,7 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [UnionMember2].
+             * Returns an immutable instance of [Payment].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
@@ -3118,30 +2992,33 @@ private constructor(
              * ```kotlin
              * .id()
              * .payment()
-             * .type()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): UnionMember2 =
-                UnionMember2(
+            fun build(): Payment =
+                Payment(
                     checkRequired("id", id),
                     checkRequired("payment", payment),
-                    checkRequired("type", type),
+                    type,
                     additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
-        fun validate(): UnionMember2 = apply {
+        fun validate(): Payment = apply {
             if (validated) {
                 return@apply
             }
 
             id()
             payment().validate()
-            type().validate()
+            _type().let {
+                if (it != JsonValue.from("payment")) {
+                    throw RainHelloWorldInvalidDataException("'type' is invalid, received $it")
+                }
+            }
             validated = true
         }
 
@@ -3162,10 +3039,10 @@ private constructor(
         internal fun validity(): Int =
             (if (id.asKnown() == null) 0 else 1) +
                 (payment.asKnown()?.validity() ?: 0) +
-                (type.asKnown()?.validity() ?: 0)
+                type.let { if (it == JsonValue.from("payment")) 1 else 0 }
 
         /** Details of the payment transaction, including amount, currency, and status. */
-        class Payment
+        class InnerPayment
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
@@ -3402,7 +3279,7 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Payment].
+                 * Returns a mutable builder for constructing an instance of [InnerPayment].
                  *
                  * The following fields are required:
                  * ```kotlin
@@ -3414,7 +3291,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            /** A builder for [Payment]. */
+            /** A builder for [InnerPayment]. */
             class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
@@ -3429,18 +3306,18 @@ private constructor(
                 private var walletAddress: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(payment: Payment) = apply {
-                    amount = payment.amount
-                    currency = payment.currency
-                    status = payment.status
-                    chainId = payment.chainId
-                    companyId = payment.companyId
-                    memo = payment.memo
-                    postedAt = payment.postedAt
-                    transactionHash = payment.transactionHash
-                    userId = payment.userId
-                    walletAddress = payment.walletAddress
-                    additionalProperties = payment.additionalProperties.toMutableMap()
+                internal fun from(innerPayment: InnerPayment) = apply {
+                    amount = innerPayment.amount
+                    currency = innerPayment.currency
+                    status = innerPayment.status
+                    chainId = innerPayment.chainId
+                    companyId = innerPayment.companyId
+                    memo = innerPayment.memo
+                    postedAt = innerPayment.postedAt
+                    transactionHash = innerPayment.transactionHash
+                    userId = innerPayment.userId
+                    walletAddress = innerPayment.walletAddress
+                    additionalProperties = innerPayment.additionalProperties.toMutableMap()
                 }
 
                 /** The amount of the transaction, in cents */
@@ -3592,7 +3469,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Payment].
+                 * Returns an immutable instance of [InnerPayment].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -3605,8 +3482,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Payment =
-                    Payment(
+                fun build(): InnerPayment =
+                    InnerPayment(
                         checkRequired("amount", amount),
                         checkRequired("currency", currency),
                         checkRequired("status", status),
@@ -3623,7 +3500,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Payment = apply {
+            fun validate(): InnerPayment = apply {
                 if (validated) {
                     return@apply
                 }
@@ -3803,7 +3680,7 @@ private constructor(
                     return true
                 }
 
-                return other is Payment &&
+                return other is InnerPayment &&
                     amount == other.amount &&
                     currency == other.currency &&
                     status == other.status &&
@@ -3836,128 +3713,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Payment{amount=$amount, currency=$currency, status=$status, chainId=$chainId, companyId=$companyId, memo=$memo, postedAt=$postedAt, transactionHash=$transactionHash, userId=$userId, walletAddress=$walletAddress, additionalProperties=$additionalProperties}"
-        }
-
-        /** The type of transaction */
-        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                val PAYMENT = of("payment")
-
-                fun of(value: String) = Type(JsonField.of(value))
-            }
-
-            /** An enum containing [Type]'s known values. */
-            enum class Known {
-                PAYMENT
-            }
-
-            /**
-             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Type] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                PAYMENT,
-                /** An enum member indicating that [Type] was instantiated with an unknown value. */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    PAYMENT -> Value.PAYMENT
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws RainHelloWorldInvalidDataException if this class instance's value is a not a
-             *   known member.
-             */
-            fun known(): Known =
-                when (this) {
-                    PAYMENT -> Known.PAYMENT
-                    else -> throw RainHelloWorldInvalidDataException("Unknown Type: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws RainHelloWorldInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw RainHelloWorldInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            fun validate(): Type = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: RainHelloWorldInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Type && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
+                "InnerPayment{amount=$amount, currency=$currency, status=$status, chainId=$chainId, companyId=$companyId, memo=$memo, postedAt=$postedAt, transactionHash=$transactionHash, userId=$userId, walletAddress=$walletAddress, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -3965,7 +3721,7 @@ private constructor(
                 return true
             }
 
-            return other is UnionMember2 &&
+            return other is Payment &&
                 id == other.id &&
                 payment == other.payment &&
                 type == other.type &&
@@ -3977,24 +3733,24 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "UnionMember2{id=$id, payment=$payment, type=$type, additionalProperties=$additionalProperties}"
+            "Payment{id=$id, payment=$payment, type=$type, additionalProperties=$additionalProperties}"
     }
 
     /** Represents a fee transaction, where a fee is charged for a service or product. */
-    class UnionMember3
+    class Fee
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val id: JsonField<String>,
-        private val fee: JsonField<Fee>,
-        private val type: JsonField<Type>,
+        private val fee: JsonField<InnerFee>,
+        private val type: JsonValue,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("fee") @ExcludeMissing fee: JsonField<Fee> = JsonMissing.of(),
-            @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            @JsonProperty("fee") @ExcludeMissing fee: JsonField<InnerFee> = JsonMissing.of(),
+            @JsonProperty("type") @ExcludeMissing type: JsonValue = JsonMissing.of(),
         ) : this(id, fee, type, mutableMapOf())
 
         /**
@@ -4011,15 +3767,20 @@ private constructor(
          * @throws RainHelloWorldInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun fee(): Fee = fee.getRequired("fee")
+        fun fee(): InnerFee = fee.getRequired("fee")
 
         /**
          * The type of transaction, in this case, a fee transaction
          *
-         * @throws RainHelloWorldInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * Expected to always return the following:
+         * ```kotlin
+         * JsonValue.from("fee")
+         * ```
+         *
+         * However, this method can be useful for debugging and logging (e.g. if the server
+         * responded with an unexpected value).
          */
-        fun type(): Type = type.getRequired("type")
+        @JsonProperty("type") @ExcludeMissing fun _type(): JsonValue = type
 
         /**
          * Returns the raw JSON value of [id].
@@ -4033,14 +3794,7 @@ private constructor(
          *
          * Unlike [fee], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("fee") @ExcludeMissing fun _fee(): JsonField<Fee> = fee
-
-        /**
-         * Returns the raw JSON value of [type].
-         *
-         * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
+        @JsonProperty("fee") @ExcludeMissing fun _fee(): JsonField<InnerFee> = fee
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4057,31 +3811,30 @@ private constructor(
         companion object {
 
             /**
-             * Returns a mutable builder for constructing an instance of [UnionMember3].
+             * Returns a mutable builder for constructing an instance of [Fee].
              *
              * The following fields are required:
              * ```kotlin
              * .id()
              * .fee()
-             * .type()
              * ```
              */
             fun builder() = Builder()
         }
 
-        /** A builder for [UnionMember3]. */
+        /** A builder for [Fee]. */
         class Builder internal constructor() {
 
             private var id: JsonField<String>? = null
-            private var fee: JsonField<Fee>? = null
-            private var type: JsonField<Type>? = null
+            private var fee: JsonField<InnerFee>? = null
+            private var type: JsonValue = JsonValue.from("fee")
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-            internal fun from(unionMember3: UnionMember3) = apply {
-                id = unionMember3.id
-                fee = unionMember3.fee
-                type = unionMember3.type
-                additionalProperties = unionMember3.additionalProperties.toMutableMap()
+            internal fun from(fee: Fee) = apply {
+                id = fee.id
+                this.fee = fee.fee
+                type = fee.type
+                additionalProperties = fee.additionalProperties.toMutableMap()
             }
 
             /** The identifier of the fee transaction */
@@ -4097,28 +3850,30 @@ private constructor(
             fun id(id: JsonField<String>) = apply { this.id = id }
 
             /** Details of the fee transaction, including amount, description, and status. */
-            fun fee(fee: Fee) = fee(JsonField.of(fee))
+            fun fee(fee: InnerFee) = fee(JsonField.of(fee))
 
             /**
              * Sets [Builder.fee] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.fee] with a well-typed [Fee] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * You should usually call [Builder.fee] with a well-typed [InnerFee] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun fee(fee: JsonField<Fee>) = apply { this.fee = fee }
-
-            /** The type of transaction, in this case, a fee transaction */
-            fun type(type: Type) = type(JsonField.of(type))
+            fun fee(fee: JsonField<InnerFee>) = apply { this.fee = fee }
 
             /**
-             * Sets [Builder.type] to an arbitrary JSON value.
+             * Sets the field to an arbitrary JSON value.
              *
-             * You should usually call [Builder.type] with a well-typed [Type] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
+             * It is usually unnecessary to call this method because the field defaults to the
+             * following:
+             * ```kotlin
+             * JsonValue.from("fee")
+             * ```
+             *
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
              */
-            fun type(type: JsonField<Type>) = apply { this.type = type }
+            fun type(type: JsonValue) = apply { this.type = type }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -4140,7 +3895,7 @@ private constructor(
             }
 
             /**
-             * Returns an immutable instance of [UnionMember3].
+             * Returns an immutable instance of [Fee].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              *
@@ -4148,30 +3903,33 @@ private constructor(
              * ```kotlin
              * .id()
              * .fee()
-             * .type()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
-            fun build(): UnionMember3 =
-                UnionMember3(
+            fun build(): Fee =
+                Fee(
                     checkRequired("id", id),
                     checkRequired("fee", fee),
-                    checkRequired("type", type),
+                    type,
                     additionalProperties.toMutableMap(),
                 )
         }
 
         private var validated: Boolean = false
 
-        fun validate(): UnionMember3 = apply {
+        fun validate(): Fee = apply {
             if (validated) {
                 return@apply
             }
 
             id()
             fee().validate()
-            type().validate()
+            _type().let {
+                if (it != JsonValue.from("fee")) {
+                    throw RainHelloWorldInvalidDataException("'type' is invalid, received $it")
+                }
+            }
             validated = true
         }
 
@@ -4192,10 +3950,10 @@ private constructor(
         internal fun validity(): Int =
             (if (id.asKnown() == null) 0 else 1) +
                 (fee.asKnown()?.validity() ?: 0) +
-                (type.asKnown()?.validity() ?: 0)
+                type.let { if (it == JsonValue.from("fee")) 1 else 0 }
 
         /** Details of the fee transaction, including amount, description, and status. */
-        class Fee
+        class InnerFee
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val amount: JsonField<Long>,
@@ -4321,7 +4079,7 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [Fee].
+                 * Returns a mutable builder for constructing an instance of [InnerFee].
                  *
                  * The following fields are required:
                  * ```kotlin
@@ -4331,7 +4089,7 @@ private constructor(
                 fun builder() = Builder()
             }
 
-            /** A builder for [Fee]. */
+            /** A builder for [InnerFee]. */
             class Builder internal constructor() {
 
                 private var amount: JsonField<Long>? = null
@@ -4341,13 +4099,13 @@ private constructor(
                 private var userId: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
-                internal fun from(fee: Fee) = apply {
-                    amount = fee.amount
-                    companyId = fee.companyId
-                    description = fee.description
-                    postedAt = fee.postedAt
-                    userId = fee.userId
-                    additionalProperties = fee.additionalProperties.toMutableMap()
+                internal fun from(innerFee: InnerFee) = apply {
+                    amount = innerFee.amount
+                    companyId = innerFee.companyId
+                    description = innerFee.description
+                    postedAt = innerFee.postedAt
+                    userId = innerFee.userId
+                    additionalProperties = innerFee.additionalProperties.toMutableMap()
                 }
 
                 /** The amount of the fee, in cents */
@@ -4437,7 +4195,7 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [Fee].
+                 * Returns an immutable instance of [InnerFee].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
@@ -4448,8 +4206,8 @@ private constructor(
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): Fee =
-                    Fee(
+                fun build(): InnerFee =
+                    InnerFee(
                         checkRequired("amount", amount),
                         companyId,
                         description,
@@ -4461,7 +4219,7 @@ private constructor(
 
             private var validated: Boolean = false
 
-            fun validate(): Fee = apply {
+            fun validate(): InnerFee = apply {
                 if (validated) {
                     return@apply
                 }
@@ -4500,7 +4258,7 @@ private constructor(
                     return true
                 }
 
-                return other is Fee &&
+                return other is InnerFee &&
                     amount == other.amount &&
                     companyId == other.companyId &&
                     description == other.description &&
@@ -4516,128 +4274,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Fee{amount=$amount, companyId=$companyId, description=$description, postedAt=$postedAt, userId=$userId, additionalProperties=$additionalProperties}"
-        }
-
-        /** The type of transaction, in this case, a fee transaction */
-        class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                val FEE = of("fee")
-
-                fun of(value: String) = Type(JsonField.of(value))
-            }
-
-            /** An enum containing [Type]'s known values. */
-            enum class Known {
-                FEE
-            }
-
-            /**
-             * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Type] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                FEE,
-                /** An enum member indicating that [Type] was instantiated with an unknown value. */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    FEE -> Value.FEE
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws RainHelloWorldInvalidDataException if this class instance's value is a not a
-             *   known member.
-             */
-            fun known(): Known =
-                when (this) {
-                    FEE -> Known.FEE
-                    else -> throw RainHelloWorldInvalidDataException("Unknown Type: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws RainHelloWorldInvalidDataException if this class instance's value does not
-             *   have the expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString()
-                    ?: throw RainHelloWorldInvalidDataException("Value is not a String")
-
-            private var validated: Boolean = false
-
-            fun validate(): Type = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: RainHelloWorldInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Type && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
+                "InnerFee{amount=$amount, companyId=$companyId, description=$description, postedAt=$postedAt, userId=$userId, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -4645,7 +4282,7 @@ private constructor(
                 return true
             }
 
-            return other is UnionMember3 &&
+            return other is Fee &&
                 id == other.id &&
                 fee == other.fee &&
                 type == other.type &&
@@ -4657,6 +4294,6 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "UnionMember3{id=$id, fee=$fee, type=$type, additionalProperties=$additionalProperties}"
+            "Fee{id=$id, fee=$fee, type=$type, additionalProperties=$additionalProperties}"
     }
 }
