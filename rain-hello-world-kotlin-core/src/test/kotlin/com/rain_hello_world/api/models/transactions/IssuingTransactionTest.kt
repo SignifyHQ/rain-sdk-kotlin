@@ -16,22 +16,22 @@ import org.junit.jupiter.params.provider.EnumSource
 internal class IssuingTransactionTest {
 
     @Test
-    fun ofUnionMember0() {
-        val unionMember0 =
-            IssuingTransaction.UnionMember0.builder()
+    fun ofSpend() {
+        val spend =
+            IssuingTransaction.Spend.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .spend(
-                    IssuingTransaction.UnionMember0.Spend.builder()
+                    IssuingTransaction.Spend.InnerSpend.builder()
                         .amount(0L)
                         .authorizedAt("authorizedAt")
                         .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                        .cardType(IssuingTransaction.UnionMember0.Spend.CardType.PHYSICAL)
+                        .cardType(IssuingTransaction.Spend.InnerSpend.CardType.PHYSICAL)
                         .currency("currency")
                         .merchantCategory("merchantCategory")
                         .merchantCategoryCode("merchantCategoryCode")
                         .merchantName("merchantName")
                         .receipt(true)
-                        .status(IssuingTransaction.UnionMember0.Spend.Status.PENDING)
+                        .status(IssuingTransaction.Spend.InnerSpend.Status.PENDING)
                         .userEmail("userEmail")
                         .userFirstName("userFirstName")
                         .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -51,33 +51,33 @@ internal class IssuingTransactionTest {
                 )
                 .build()
 
-        val issuingTransaction = IssuingTransaction.ofUnionMember0(unionMember0)
+        val issuingTransaction = IssuingTransaction.ofSpend(spend)
 
-        assertThat(issuingTransaction.unionMember0()).isEqualTo(unionMember0)
-        assertThat(issuingTransaction.unionMember1()).isNull()
-        assertThat(issuingTransaction.unionMember2()).isNull()
-        assertThat(issuingTransaction.unionMember3()).isNull()
+        assertThat(issuingTransaction.spend()).isEqualTo(spend)
+        assertThat(issuingTransaction.collateral()).isNull()
+        assertThat(issuingTransaction.payment()).isNull()
+        assertThat(issuingTransaction.fee()).isNull()
     }
 
     @Test
-    fun ofUnionMember0Roundtrip() {
+    fun ofSpendRoundtrip() {
         val jsonMapper = jsonMapper()
         val issuingTransaction =
-            IssuingTransaction.ofUnionMember0(
-                IssuingTransaction.UnionMember0.builder()
+            IssuingTransaction.ofSpend(
+                IssuingTransaction.Spend.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .spend(
-                        IssuingTransaction.UnionMember0.Spend.builder()
+                        IssuingTransaction.Spend.InnerSpend.builder()
                             .amount(0L)
                             .authorizedAt("authorizedAt")
                             .cardId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                            .cardType(IssuingTransaction.UnionMember0.Spend.CardType.PHYSICAL)
+                            .cardType(IssuingTransaction.Spend.InnerSpend.CardType.PHYSICAL)
                             .currency("currency")
                             .merchantCategory("merchantCategory")
                             .merchantCategoryCode("merchantCategoryCode")
                             .merchantName("merchantName")
                             .receipt(true)
-                            .status(IssuingTransaction.UnionMember0.Spend.Status.PENDING)
+                            .status(IssuingTransaction.Spend.InnerSpend.Status.PENDING)
                             .userEmail("userEmail")
                             .userFirstName("userFirstName")
                             .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -108,12 +108,12 @@ internal class IssuingTransactionTest {
     }
 
     @Test
-    fun ofUnionMember1() {
-        val unionMember1 =
-            IssuingTransaction.UnionMember1.builder()
+    fun ofCollateral() {
+        val collateral =
+            IssuingTransaction.Collateral.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .collateral(
-                    IssuingTransaction.UnionMember1.Collateral.builder()
+                    IssuingTransaction.Collateral.InnerCollateral.builder()
                         .amount(0.0)
                         .chainId(0L)
                         .currency("currency")
@@ -127,26 +127,25 @@ internal class IssuingTransactionTest {
                         .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
                 )
-                .type(IssuingTransaction.UnionMember1.Type.COLLATERAL)
                 .build()
 
-        val issuingTransaction = IssuingTransaction.ofUnionMember1(unionMember1)
+        val issuingTransaction = IssuingTransaction.ofCollateral(collateral)
 
-        assertThat(issuingTransaction.unionMember0()).isNull()
-        assertThat(issuingTransaction.unionMember1()).isEqualTo(unionMember1)
-        assertThat(issuingTransaction.unionMember2()).isNull()
-        assertThat(issuingTransaction.unionMember3()).isNull()
+        assertThat(issuingTransaction.spend()).isNull()
+        assertThat(issuingTransaction.collateral()).isEqualTo(collateral)
+        assertThat(issuingTransaction.payment()).isNull()
+        assertThat(issuingTransaction.fee()).isNull()
     }
 
     @Test
-    fun ofUnionMember1Roundtrip() {
+    fun ofCollateralRoundtrip() {
         val jsonMapper = jsonMapper()
         val issuingTransaction =
-            IssuingTransaction.ofUnionMember1(
-                IssuingTransaction.UnionMember1.builder()
+            IssuingTransaction.ofCollateral(
+                IssuingTransaction.Collateral.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .collateral(
-                        IssuingTransaction.UnionMember1.Collateral.builder()
+                        IssuingTransaction.Collateral.InnerCollateral.builder()
                             .amount(0.0)
                             .chainId(0L)
                             .currency("currency")
@@ -160,7 +159,6 @@ internal class IssuingTransactionTest {
                             .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .build()
                     )
-                    .type(IssuingTransaction.UnionMember1.Type.COLLATERAL)
                     .build()
             )
 
@@ -174,15 +172,15 @@ internal class IssuingTransactionTest {
     }
 
     @Test
-    fun ofUnionMember2() {
-        val unionMember2 =
-            IssuingTransaction.UnionMember2.builder()
+    fun ofPayment() {
+        val payment =
+            IssuingTransaction.Payment.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .payment(
-                    IssuingTransaction.UnionMember2.Payment.builder()
+                    IssuingTransaction.Payment.InnerPayment.builder()
                         .amount(0L)
                         .currency("currency")
-                        .status(IssuingTransaction.UnionMember2.Payment.Status.PENDING)
+                        .status(IssuingTransaction.Payment.InnerPayment.Status.PENDING)
                         .chainId(0L)
                         .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .memo("memo")
@@ -194,29 +192,28 @@ internal class IssuingTransactionTest {
                         .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
                         .build()
                 )
-                .type(IssuingTransaction.UnionMember2.Type.PAYMENT)
                 .build()
 
-        val issuingTransaction = IssuingTransaction.ofUnionMember2(unionMember2)
+        val issuingTransaction = IssuingTransaction.ofPayment(payment)
 
-        assertThat(issuingTransaction.unionMember0()).isNull()
-        assertThat(issuingTransaction.unionMember1()).isNull()
-        assertThat(issuingTransaction.unionMember2()).isEqualTo(unionMember2)
-        assertThat(issuingTransaction.unionMember3()).isNull()
+        assertThat(issuingTransaction.spend()).isNull()
+        assertThat(issuingTransaction.collateral()).isNull()
+        assertThat(issuingTransaction.payment()).isEqualTo(payment)
+        assertThat(issuingTransaction.fee()).isNull()
     }
 
     @Test
-    fun ofUnionMember2Roundtrip() {
+    fun ofPaymentRoundtrip() {
         val jsonMapper = jsonMapper()
         val issuingTransaction =
-            IssuingTransaction.ofUnionMember2(
-                IssuingTransaction.UnionMember2.builder()
+            IssuingTransaction.ofPayment(
+                IssuingTransaction.Payment.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .payment(
-                        IssuingTransaction.UnionMember2.Payment.builder()
+                        IssuingTransaction.Payment.InnerPayment.builder()
                             .amount(0L)
                             .currency("currency")
-                            .status(IssuingTransaction.UnionMember2.Payment.Status.PENDING)
+                            .status(IssuingTransaction.Payment.InnerPayment.Status.PENDING)
                             .chainId(0L)
                             .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .memo("memo")
@@ -228,7 +225,6 @@ internal class IssuingTransactionTest {
                             .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
                             .build()
                     )
-                    .type(IssuingTransaction.UnionMember2.Type.PAYMENT)
                     .build()
             )
 
@@ -242,12 +238,12 @@ internal class IssuingTransactionTest {
     }
 
     @Test
-    fun ofUnionMember3() {
-        val unionMember3 =
-            IssuingTransaction.UnionMember3.builder()
+    fun ofFee() {
+        val fee =
+            IssuingTransaction.Fee.builder()
                 .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .fee(
-                    IssuingTransaction.UnionMember3.Fee.builder()
+                    IssuingTransaction.Fee.InnerFee.builder()
                         .amount(0L)
                         .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .description("description")
@@ -255,26 +251,25 @@ internal class IssuingTransactionTest {
                         .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                         .build()
                 )
-                .type(IssuingTransaction.UnionMember3.Type.FEE)
                 .build()
 
-        val issuingTransaction = IssuingTransaction.ofUnionMember3(unionMember3)
+        val issuingTransaction = IssuingTransaction.ofFee(fee)
 
-        assertThat(issuingTransaction.unionMember0()).isNull()
-        assertThat(issuingTransaction.unionMember1()).isNull()
-        assertThat(issuingTransaction.unionMember2()).isNull()
-        assertThat(issuingTransaction.unionMember3()).isEqualTo(unionMember3)
+        assertThat(issuingTransaction.spend()).isNull()
+        assertThat(issuingTransaction.collateral()).isNull()
+        assertThat(issuingTransaction.payment()).isNull()
+        assertThat(issuingTransaction.fee()).isEqualTo(fee)
     }
 
     @Test
-    fun ofUnionMember3Roundtrip() {
+    fun ofFeeRoundtrip() {
         val jsonMapper = jsonMapper()
         val issuingTransaction =
-            IssuingTransaction.ofUnionMember3(
-                IssuingTransaction.UnionMember3.builder()
+            IssuingTransaction.ofFee(
+                IssuingTransaction.Fee.builder()
                     .id("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                     .fee(
-                        IssuingTransaction.UnionMember3.Fee.builder()
+                        IssuingTransaction.Fee.InnerFee.builder()
                             .amount(0L)
                             .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .description("description")
@@ -282,7 +277,6 @@ internal class IssuingTransactionTest {
                             .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                             .build()
                     )
-                    .type(IssuingTransaction.UnionMember3.Type.FEE)
                     .build()
             )
 
