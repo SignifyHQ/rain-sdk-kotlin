@@ -1,0 +1,364 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.rain_sdk.api.models.cards
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.rain_sdk.api.core.Enum
+import com.rain_sdk.api.core.ExcludeMissing
+import com.rain_sdk.api.core.JsonField
+import com.rain_sdk.api.core.JsonMissing
+import com.rain_sdk.api.core.JsonValue
+import com.rain_sdk.api.core.checkRequired
+import com.rain_sdk.api.errors.RainInvalidDataException
+import java.util.Collections
+import java.util.Objects
+
+/** Represents the spending limit and frequency for a card. */
+class IssuingCardLimit
+@JsonCreator(mode = JsonCreator.Mode.DISABLED)
+private constructor(
+    private val amount: JsonField<Long>,
+    private val frequency: JsonField<Frequency>,
+    private val additionalProperties: MutableMap<String, JsonValue>,
+) {
+
+    @JsonCreator
+    private constructor(
+        @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("frequency")
+        @ExcludeMissing
+        frequency: JsonField<Frequency> = JsonMissing.of(),
+    ) : this(amount, frequency, mutableMapOf())
+
+    /**
+     * The maximum spending amount in cents
+     *
+     * @throws RainInvalidDataException if the JSON field has an unexpected type or is unexpectedly
+     *   missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun amount(): Long = amount.getRequired("amount")
+
+    /**
+     * The frequency at which the spending limit resets
+     *
+     * @throws RainInvalidDataException if the JSON field has an unexpected type or is unexpectedly
+     *   missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun frequency(): Frequency = frequency.getRequired("frequency")
+
+    /**
+     * Returns the raw JSON value of [amount].
+     *
+     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+    /**
+     * Returns the raw JSON value of [frequency].
+     *
+     * Unlike [frequency], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("frequency") @ExcludeMissing fun _frequency(): JsonField<Frequency> = frequency
+
+    @JsonAnySetter
+    private fun putAdditionalProperty(key: String, value: JsonValue) {
+        additionalProperties.put(key, value)
+    }
+
+    @JsonAnyGetter
+    @ExcludeMissing
+    fun _additionalProperties(): Map<String, JsonValue> =
+        Collections.unmodifiableMap(additionalProperties)
+
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of [IssuingCardLimit].
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .frequency()
+         * ```
+         */
+        fun builder() = Builder()
+    }
+
+    /** A builder for [IssuingCardLimit]. */
+    class Builder internal constructor() {
+
+        private var amount: JsonField<Long>? = null
+        private var frequency: JsonField<Frequency>? = null
+        private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+        internal fun from(issuingCardLimit: IssuingCardLimit) = apply {
+            amount = issuingCardLimit.amount
+            frequency = issuingCardLimit.frequency
+            additionalProperties = issuingCardLimit.additionalProperties.toMutableMap()
+        }
+
+        /** The maximum spending amount in cents */
+        fun amount(amount: Long) = amount(JsonField.of(amount))
+
+        /**
+         * Sets [Builder.amount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /** The frequency at which the spending limit resets */
+        fun frequency(frequency: Frequency) = frequency(JsonField.of(frequency))
+
+        /**
+         * Sets [Builder.frequency] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.frequency] with a well-typed [Frequency] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun frequency(frequency: JsonField<Frequency>) = apply { this.frequency = frequency }
+
+        fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.clear()
+            putAllAdditionalProperties(additionalProperties)
+        }
+
+        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+            additionalProperties.put(key, value)
+        }
+
+        fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+            this.additionalProperties.putAll(additionalProperties)
+        }
+
+        fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+            keys.forEach(::removeAdditionalProperty)
+        }
+
+        /**
+         * Returns an immutable instance of [IssuingCardLimit].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```kotlin
+         * .amount()
+         * .frequency()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): IssuingCardLimit =
+            IssuingCardLimit(
+                checkRequired("amount", amount),
+                checkRequired("frequency", frequency),
+                additionalProperties.toMutableMap(),
+            )
+    }
+
+    private var validated: Boolean = false
+
+    fun validate(): IssuingCardLimit = apply {
+        if (validated) {
+            return@apply
+        }
+
+        amount()
+        frequency().validate()
+        validated = true
+    }
+
+    fun isValid(): Boolean =
+        try {
+            validate()
+            true
+        } catch (e: RainInvalidDataException) {
+            false
+        }
+
+    /**
+     * Returns a score indicating how many valid values are contained in this object recursively.
+     *
+     * Used for best match union deserialization.
+     */
+    internal fun validity(): Int =
+        (if (amount.asKnown() == null) 0 else 1) + (frequency.asKnown()?.validity() ?: 0)
+
+    /** The frequency at which the spending limit resets */
+    class Frequency @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            val PER24_HOUR_PERIOD = of("per24HourPeriod")
+
+            val PER7_DAY_PERIOD = of("per7DayPeriod")
+
+            val PER30_DAY_PERIOD = of("per30DayPeriod")
+
+            val PER_YEAR_PERIOD = of("perYearPeriod")
+
+            val ALL_TIME = of("allTime")
+
+            val PER_AUTHORIZATION = of("perAuthorization")
+
+            fun of(value: String) = Frequency(JsonField.of(value))
+        }
+
+        /** An enum containing [Frequency]'s known values. */
+        enum class Known {
+            PER24_HOUR_PERIOD,
+            PER7_DAY_PERIOD,
+            PER30_DAY_PERIOD,
+            PER_YEAR_PERIOD,
+            ALL_TIME,
+            PER_AUTHORIZATION,
+        }
+
+        /**
+         * An enum containing [Frequency]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Frequency] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            PER24_HOUR_PERIOD,
+            PER7_DAY_PERIOD,
+            PER30_DAY_PERIOD,
+            PER_YEAR_PERIOD,
+            ALL_TIME,
+            PER_AUTHORIZATION,
+            /**
+             * An enum member indicating that [Frequency] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                PER24_HOUR_PERIOD -> Value.PER24_HOUR_PERIOD
+                PER7_DAY_PERIOD -> Value.PER7_DAY_PERIOD
+                PER30_DAY_PERIOD -> Value.PER30_DAY_PERIOD
+                PER_YEAR_PERIOD -> Value.PER_YEAR_PERIOD
+                ALL_TIME -> Value.ALL_TIME
+                PER_AUTHORIZATION -> Value.PER_AUTHORIZATION
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws RainInvalidDataException if this class instance's value is a not a known member.
+         */
+        fun known(): Known =
+            when (this) {
+                PER24_HOUR_PERIOD -> Known.PER24_HOUR_PERIOD
+                PER7_DAY_PERIOD -> Known.PER7_DAY_PERIOD
+                PER30_DAY_PERIOD -> Known.PER30_DAY_PERIOD
+                PER_YEAR_PERIOD -> Known.PER_YEAR_PERIOD
+                ALL_TIME -> Known.ALL_TIME
+                PER_AUTHORIZATION -> Known.PER_AUTHORIZATION
+                else -> throw RainInvalidDataException("Unknown Frequency: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws RainInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString() ?: throw RainInvalidDataException("Value is not a String")
+
+        private var validated: Boolean = false
+
+        fun validate(): Frequency = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: RainInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Frequency && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is IssuingCardLimit &&
+            amount == other.amount &&
+            frequency == other.frequency &&
+            additionalProperties == other.additionalProperties
+    }
+
+    private val hashCode: Int by lazy { Objects.hash(amount, frequency, additionalProperties) }
+
+    override fun hashCode(): Int = hashCode
+
+    override fun toString() =
+        "IssuingCardLimit{amount=$amount, frequency=$frequency, additionalProperties=$additionalProperties}"
+}

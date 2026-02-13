@@ -1,28 +1,28 @@
-# Rain Hello World Kotlin API Library
+# Rain Kotlin API Library
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.rain_hello_world.api/rain-hello-world-kotlin)](https://central.sonatype.com/artifact/com.rain_hello_world.api/rain-hello-world-kotlin/0.0.1)
-[![javadoc](https://javadoc.io/badge2/com.rain_hello_world.api/rain-hello-world-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.rain_hello_world.api/rain-hello-world-kotlin/0.0.1)
+[![Maven Central](https://img.shields.io/maven-central/v/com.rain_sdk.api/rain-kotlin)](https://central.sonatype.com/artifact/com.rain_sdk.api/rain-kotlin/0.0.1)
+[![javadoc](https://javadoc.io/badge2/com.rain_sdk.api/rain-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.rain_sdk.api/rain-kotlin/0.0.1)
 
-The Rain Hello World Kotlin SDK provides convenient access to the Rain Hello World REST API from applications written in Kotlin.
+The Rain Kotlin SDK provides convenient access to the Rain REST API from applications written in Kotlin.
 
 It is generated with [Stainless](https://www.stainless.com/).
 
-KDocs are available on [javadoc.io](https://javadoc.io/doc/com.rain_hello_world.api/rain-hello-world-kotlin/0.0.1).
+KDocs are available on [javadoc.io](https://javadoc.io/doc/com.rain_sdk.api/rain-kotlin/0.0.1).
 
 ## Installation
 
 ### Gradle
 
 ```kotlin
-implementation("com.rain_hello_world.api:rain-hello-world-kotlin:0.0.1")
+implementation("com.rain_sdk.api:rain-kotlin:0.0.1")
 ```
 
 ### Maven
 
 ```xml
 <dependency>
-  <groupId>com.rain_hello_world.api</groupId>
-  <artifactId>rain-hello-world-kotlin</artifactId>
+  <groupId>com.rain_sdk.api</groupId>
+  <artifactId>rain-kotlin</artifactId>
   <version>0.0.1</version>
 </dependency>
 ```
@@ -34,15 +34,15 @@ This library requires Java 8 or later.
 ## Usage
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
-import com.rain_hello_world.api.models.companies.CompanyChargeParams
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
+import com.rain_sdk.api.models.companies.CompanyChargeParams
+import com.rain_sdk.api.models.companies.IssuingChargeCreateBody
+import com.rain_sdk.api.models.companies.IssuingChargeCreateResponse
 
-// Configures using the `rainhelloworld.apiKey` and `rainhelloworld.baseUrl` system properties
-// Or configures using the `RAIN_HELLO_WORLD_API_KEY` and `RAIN_HELLO_WORLD_BASE_URL` environment variables
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.fromEnv()
+// Configures using the `rain.apiKey` and `rain.baseUrl` system properties
+// Or configures using the `RAIN_API_KEY` and `RAIN_BASE_URL` environment variables
+val client: RainClient = RainOkHttpClient.fromEnv()
 
 val params: CompanyChargeParams = CompanyChargeParams.builder()
     .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -59,21 +59,21 @@ val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies(
 Configure the client using system properties or environment variables:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 
-// Configures using the `rainhelloworld.apiKey` and `rainhelloworld.baseUrl` system properties
-// Or configures using the `RAIN_HELLO_WORLD_API_KEY` and `RAIN_HELLO_WORLD_BASE_URL` environment variables
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.fromEnv()
+// Configures using the `rain.apiKey` and `rain.baseUrl` system properties
+// Or configures using the `RAIN_API_KEY` and `RAIN_BASE_URL` environment variables
+val client: RainClient = RainOkHttpClient.fromEnv()
 ```
 
 Or manually:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
+val client: RainClient = RainOkHttpClient.builder()
     .apiKey("My API Key")
     .build()
 ```
@@ -81,12 +81,12 @@ val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
 Or using a combination of the two approaches:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
-    // Configures using the `rainhelloworld.apiKey` and `rainhelloworld.baseUrl` system properties
-    // Or configures using the `RAIN_HELLO_WORLD_API_KEY` and `RAIN_HELLO_WORLD_BASE_URL` environment variables
+val client: RainClient = RainOkHttpClient.builder()
+    // Configures using the `rain.apiKey` and `rain.baseUrl` system properties
+    // Or configures using the `RAIN_API_KEY` and `RAIN_BASE_URL` environment variables
     .fromEnv()
     .apiKey("My API Key")
     .build()
@@ -94,10 +94,10 @@ val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
 
 See this table for the available options:
 
-| Setter    | System property          | Environment variable        | Required | Default value                                |
-| --------- | ------------------------ | --------------------------- | -------- | -------------------------------------------- |
-| `apiKey`  | `rainhelloworld.apiKey`  | `RAIN_HELLO_WORLD_API_KEY`  | true     | -                                            |
-| `baseUrl` | `rainhelloworld.baseUrl` | `RAIN_HELLO_WORLD_BASE_URL` | true     | `"https://api-dev.raincards.xyz/v1/issuing"` |
+| Setter    | System property | Environment variable | Required | Default value                                |
+| --------- | --------------- | -------------------- | -------- | -------------------------------------------- |
+| `apiKey`  | `rain.apiKey`   | `RAIN_API_KEY`       | true     | -                                            |
+| `baseUrl` | `rain.baseUrl`  | `RAIN_BASE_URL`      | true     | `"https://api-dev.raincards.xyz/v1/issuing"` |
 
 System properties take precedence over environment variables.
 
@@ -110,9 +110,9 @@ System properties take precedence over environment variables.
 To temporarily use a modified client configuration, while reusing the same connection and thread pools, call `withOptions()` on any client or service:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
+import com.rain_sdk.api.client.RainClient
 
-val clientWithOptions: RainHelloWorldClient = client.withOptions {
+val clientWithOptions: RainClient = client.withOptions {
     it.baseUrl("https://example.com")
     it.maxRetries(42)
 }
@@ -122,7 +122,7 @@ The `withOptions()` method does not affect the original client or service.
 
 ## Requests and responses
 
-To send a request to the Rain Hello World API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Kotlin class.
+To send a request to the Rain API, build an instance of some `Params` class and pass it to the corresponding client method. When the response is received, it will be deserialized into an instance of a Kotlin class.
 
 For example, `client.companies().charge(...)` should be called with an instance of `CompanyChargeParams`, and it will return an instance of `IssuingChargeCreateResponse`.
 
@@ -139,15 +139,15 @@ Because each class is immutable, builder modification will _never_ affect alread
 The default client is synchronous. To switch to asynchronous execution, call the `async()` method:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
-import com.rain_hello_world.api.models.companies.CompanyChargeParams
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
+import com.rain_sdk.api.models.companies.CompanyChargeParams
+import com.rain_sdk.api.models.companies.IssuingChargeCreateBody
+import com.rain_sdk.api.models.companies.IssuingChargeCreateResponse
 
-// Configures using the `rainhelloworld.apiKey` and `rainhelloworld.baseUrl` system properties
-// Or configures using the `RAIN_HELLO_WORLD_API_KEY` and `RAIN_HELLO_WORLD_BASE_URL` environment variables
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.fromEnv()
+// Configures using the `rain.apiKey` and `rain.baseUrl` system properties
+// Or configures using the `RAIN_API_KEY` and `RAIN_BASE_URL` environment variables
+val client: RainClient = RainOkHttpClient.fromEnv()
 
 val params: CompanyChargeParams = CompanyChargeParams.builder()
     .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -162,15 +162,15 @@ val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.async().co
 Or create an asynchronous client from the beginning:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClientAsync
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClientAsync
-import com.rain_hello_world.api.models.companies.CompanyChargeParams
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
+import com.rain_sdk.api.client.RainClientAsync
+import com.rain_sdk.api.client.okhttp.RainOkHttpClientAsync
+import com.rain_sdk.api.models.companies.CompanyChargeParams
+import com.rain_sdk.api.models.companies.IssuingChargeCreateBody
+import com.rain_sdk.api.models.companies.IssuingChargeCreateResponse
 
-// Configures using the `rainhelloworld.apiKey` and `rainhelloworld.baseUrl` system properties
-// Or configures using the `RAIN_HELLO_WORLD_API_KEY` and `RAIN_HELLO_WORLD_BASE_URL` environment variables
-val client: RainHelloWorldClientAsync = RainHelloWorldOkHttpClientAsync.fromEnv()
+// Configures using the `rain.apiKey` and `rain.baseUrl` system properties
+// Or configures using the `RAIN_API_KEY` and `RAIN_BASE_URL` environment variables
+val client: RainClientAsync = RainOkHttpClientAsync.fromEnv()
 
 val params: CompanyChargeParams = CompanyChargeParams.builder()
     .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -191,7 +191,7 @@ The SDK defines methods that accept files.
 To upload a file, pass a [`Path`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Path.html):
 
 ```kotlin
-import com.rain_hello_world.api.models.applications.company.CompanyUploadDocumentParams
+import com.rain_sdk.api.models.applications.company.CompanyUploadDocumentParams
 import java.nio.file.Paths
 
 val params: CompanyUploadDocumentParams = CompanyUploadDocumentParams.builder()
@@ -204,7 +204,7 @@ client.applications().company().uploadDocument(params)
 Or an arbitrary [`InputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/InputStream.html):
 
 ```kotlin
-import com.rain_hello_world.api.models.applications.company.CompanyUploadDocumentParams
+import com.rain_sdk.api.models.applications.company.CompanyUploadDocumentParams
 import java.net.URL
 
 val params: CompanyUploadDocumentParams = CompanyUploadDocumentParams.builder()
@@ -217,7 +217,7 @@ client.applications().company().uploadDocument(params)
 Or a `ByteArray`:
 
 ```kotlin
-import com.rain_hello_world.api.models.applications.company.CompanyUploadDocumentParams
+import com.rain_sdk.api.models.applications.company.CompanyUploadDocumentParams
 
 val params: CompanyUploadDocumentParams = CompanyUploadDocumentParams.builder()
     .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -226,11 +226,11 @@ val params: CompanyUploadDocumentParams = CompanyUploadDocumentParams.builder()
 client.applications().company().uploadDocument(params)
 ```
 
-Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/core/Values.kt):
+Note that when passing a non-`Path` its filename is unknown so it will not be included in the request. To manually set a filename, pass a [`MultipartField`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/core/Values.kt):
 
 ```kotlin
-import com.rain_hello_world.api.core.MultipartField
-import com.rain_hello_world.api.models.applications.company.CompanyUploadDocumentParams
+import com.rain_sdk.api.core.MultipartField
+import com.rain_sdk.api.models.applications.company.CompanyUploadDocumentParams
 import java.io.InputStream
 import java.net.URL
 
@@ -248,11 +248,11 @@ client.applications().company().uploadDocument(params)
 
 The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
 
-These methods return [`HttpResponse`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/core/http/HttpResponse.kt):
+These methods return [`HttpResponse`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/core/http/HttpResponse.kt):
 
 ```kotlin
-import com.rain_hello_world.api.core.http.HttpResponse
-import com.rain_hello_world.api.models.disputes.evidence.EvidenceListParams
+import com.rain_sdk.api.core.http.HttpResponse
+import com.rain_sdk.api.models.disputes.evidence.EvidenceListParams
 
 val evidences: HttpResponse = client.disputes().evidence().list("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
 ```
@@ -291,11 +291,11 @@ The SDK defines methods that deserialize responses into instances of Kotlin clas
 To access this data, prefix any HTTP method call on a client or service with `withRawResponse()`:
 
 ```kotlin
-import com.rain_hello_world.api.core.http.Headers
-import com.rain_hello_world.api.core.http.HttpResponseFor
-import com.rain_hello_world.api.models.companies.CompanyChargeParams
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
+import com.rain_sdk.api.core.http.Headers
+import com.rain_sdk.api.core.http.HttpResponseFor
+import com.rain_sdk.api.models.companies.CompanyChargeParams
+import com.rain_sdk.api.models.companies.IssuingChargeCreateBody
+import com.rain_sdk.api.models.companies.IssuingChargeCreateResponse
 
 val params: CompanyChargeParams = CompanyChargeParams.builder()
     .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -313,7 +313,7 @@ val headers: Headers = issuingChargeCreateResponse.headers()
 You can still deserialize the response into an instance of a Kotlin class if needed:
 
 ```kotlin
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
+import com.rain_sdk.api.models.companies.IssuingChargeCreateResponse
 
 val parsedIssuingChargeCreateResponse: IssuingChargeCreateResponse = issuingChargeCreateResponse.parse()
 ```
@@ -322,46 +322,46 @@ val parsedIssuingChargeCreateResponse: IssuingChargeCreateResponse = issuingChar
 
 The SDK throws custom unchecked exception types:
 
-- [`RainHelloWorldServiceException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/RainHelloWorldServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
+- [`RainServiceException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/RainServiceException.kt): Base class for HTTP errors. See this table for which exception subclass is thrown for each HTTP status code:
 
-  | Status | Exception                                                                                                                                        |
-  | ------ | ------------------------------------------------------------------------------------------------------------------------------------------------ |
-  | 400    | [`BadRequestException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/BadRequestException.kt)                     |
-  | 401    | [`UnauthorizedException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/UnauthorizedException.kt)                 |
-  | 403    | [`PermissionDeniedException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/PermissionDeniedException.kt)         |
-  | 404    | [`NotFoundException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/NotFoundException.kt)                         |
-  | 422    | [`UnprocessableEntityException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/UnprocessableEntityException.kt)   |
-  | 429    | [`RateLimitException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/RateLimitException.kt)                       |
-  | 5xx    | [`InternalServerException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/InternalServerException.kt)             |
-  | others | [`UnexpectedStatusCodeException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/UnexpectedStatusCodeException.kt) |
+  | Status | Exception                                                                                                                    |
+  | ------ | ---------------------------------------------------------------------------------------------------------------------------- |
+  | 400    | [`BadRequestException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/BadRequestException.kt)                     |
+  | 401    | [`UnauthorizedException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/UnauthorizedException.kt)                 |
+  | 403    | [`PermissionDeniedException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/PermissionDeniedException.kt)         |
+  | 404    | [`NotFoundException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/NotFoundException.kt)                         |
+  | 422    | [`UnprocessableEntityException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/UnprocessableEntityException.kt)   |
+  | 429    | [`RateLimitException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/RateLimitException.kt)                       |
+  | 5xx    | [`InternalServerException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/InternalServerException.kt)             |
+  | others | [`UnexpectedStatusCodeException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/UnexpectedStatusCodeException.kt) |
 
-- [`RainHelloWorldIoException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/RainHelloWorldIoException.kt): I/O networking errors.
+- [`RainIoException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/RainIoException.kt): I/O networking errors.
 
-- [`RainHelloWorldRetryableException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/RainHelloWorldRetryableException.kt): Generic error indicating a failure that could be retried by the client.
+- [`RainRetryableException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/RainRetryableException.kt): Generic error indicating a failure that could be retried by the client.
 
-- [`RainHelloWorldInvalidDataException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/RainHelloWorldInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
+- [`RainInvalidDataException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/RainInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
-- [`RainHelloWorldException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/RainHelloWorldException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+- [`RainException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/RainException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
 
 ## Logging
 
 The SDK uses the standard [OkHttp logging interceptor](https://github.com/square/okhttp/tree/master/okhttp-logging-interceptor).
 
-Enable logging by setting the `RAIN_HELLO_WORLD_LOG` environment variable to `info`:
+Enable logging by setting the `RAIN_LOG` environment variable to `info`:
 
 ```sh
-export RAIN_HELLO_WORLD_LOG=info
+export RAIN_LOG=info
 ```
 
 Or to `debug` for more verbose logging:
 
 ```sh
-export RAIN_HELLO_WORLD_LOG=debug
+export RAIN_LOG=debug
 ```
 
 ## ProGuard and R8
 
-Although the SDK uses reflection, it is still usable with [ProGuard](https://github.com/Guardsquare/proguard) and [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because `rain-hello-world-kotlin-core` is published with a [configuration file](rain-hello-world-kotlin-core/src/main/resources/META-INF/proguard/rain-hello-world-kotlin-core.pro) containing [keep rules](https://www.guardsquare.com/manual/configuration/usage).
+Although the SDK uses reflection, it is still usable with [ProGuard](https://github.com/Guardsquare/proguard) and [R8](https://developer.android.com/topic/performance/app-optimization/enable-app-optimization) because `rain-kotlin-core` is published with a [configuration file](rain-kotlin-core/src/main/resources/META-INF/proguard/rain-kotlin-core.pro) containing [keep rules](https://www.guardsquare.com/manual/configuration/usage).
 
 ProGuard and R8 should automatically detect and use the published rules, but you can also manually copy the keep rules if necessary.
 
@@ -371,7 +371,7 @@ The SDK depends on [Jackson](https://github.com/FasterXML/jackson) for JSON seri
 
 The SDK throws an exception if it detects an incompatible Jackson version at runtime (e.g. if the default version was overridden in your Maven or Gradle config).
 
-If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`RainHelloWorldOkHttpClient`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/RainHelloWorldOkHttpClient.kt) or [`RainHelloWorldOkHttpClientAsync`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/RainHelloWorldOkHttpClientAsync.kt).
+If the SDK threw an exception, but you're _certain_ the version is compatible, then disable the version check using the `checkJacksonVersionCompatibility` on [`RainOkHttpClient`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/RainOkHttpClient.kt) or [`RainOkHttpClientAsync`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/RainOkHttpClientAsync.kt).
 
 > [!CAUTION]
 > We make no guarantee that the SDK works correctly when the Jackson version check is disabled.
@@ -397,10 +397,10 @@ The API may also explicitly instruct the SDK to retry or not retry a request.
 To set a custom number of retries, configure the client using the `maxRetries` method:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
+val client: RainClient = RainOkHttpClient.builder()
     .fromEnv()
     .maxRetries(4)
     .build()
@@ -413,7 +413,7 @@ Requests time out after 1 minute by default.
 To set a custom timeout, configure the method call using the `timeout` method:
 
 ```kotlin
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
+import com.rain_sdk.api.models.companies.IssuingChargeCreateResponse
 
 val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies().charge(
   params, RequestOptions.builder().timeout(Duration.ofSeconds(30)).build()
@@ -423,11 +423,11 @@ val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies(
 Or configure the default for all method calls at the client level:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 import java.time.Duration
 
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
+val client: RainClient = RainOkHttpClient.builder()
     .fromEnv()
     .timeout(Duration.ofSeconds(30))
     .build()
@@ -438,12 +438,12 @@ val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
 To route requests through a proxy, configure the client using the `proxy` method:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 import java.net.InetSocketAddress
 import java.net.Proxy
 
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
+val client: RainClient = RainOkHttpClient.builder()
     .fromEnv()
     .proxy(Proxy(
       Proxy.Type.HTTP, InetSocketAddress(
@@ -462,10 +462,10 @@ val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
 To configure how HTTPS connections are secured, configure the client using the `sslSocketFactory`, `trustManager`, and `hostnameVerifier` methods:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
+val client: RainClient = RainOkHttpClient.builder()
     .fromEnv()
     // If `sslSocketFactory` is set, then `trustManager` must be set, and vice versa.
     .sslSocketFactory(yourSSLSocketFactory)
@@ -479,10 +479,10 @@ val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
 The SDK sends requests to the dev by default. To send requests to a different environment, configure the client like so:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
+val client: RainClient = RainOkHttpClient.builder()
     .fromEnv()
     .production()
     .build()
@@ -492,15 +492,15 @@ val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
 
 The SDK consists of three artifacts:
 
-- `rain-hello-world-kotlin-core`
+- `rain-kotlin-core`
   - Contains core SDK logic
   - Does not depend on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`RainHelloWorldClient`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClient.kt), [`RainHelloWorldClientAsync`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientAsync.kt), [`RainHelloWorldClientImpl`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientImpl.kt), and [`RainHelloWorldClientAsyncImpl`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientAsyncImpl.kt), all of which can work with any HTTP client
-- `rain-hello-world-kotlin-client-okhttp`
+  - Exposes [`RainClient`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClient.kt), [`RainClientAsync`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientAsync.kt), [`RainClientImpl`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientImpl.kt), and [`RainClientAsyncImpl`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientAsyncImpl.kt), all of which can work with any HTTP client
+- `rain-kotlin-client-okhttp`
   - Depends on [OkHttp](https://square.github.io/okhttp)
-  - Exposes [`RainHelloWorldOkHttpClient`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/RainHelloWorldOkHttpClient.kt) and [`RainHelloWorldOkHttpClientAsync`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/RainHelloWorldOkHttpClientAsync.kt), which provide a way to construct [`RainHelloWorldClientImpl`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientImpl.kt) and [`RainHelloWorldClientAsyncImpl`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientAsyncImpl.kt), respectively, using OkHttp
-- `rain-hello-world-kotlin`
-  - Depends on and exposes the APIs of both `rain-hello-world-kotlin-core` and `rain-hello-world-kotlin-client-okhttp`
+  - Exposes [`RainOkHttpClient`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/RainOkHttpClient.kt) and [`RainOkHttpClientAsync`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/RainOkHttpClientAsync.kt), which provide a way to construct [`RainClientImpl`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientImpl.kt) and [`RainClientAsyncImpl`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientAsyncImpl.kt), respectively, using OkHttp
+- `rain-kotlin`
+  - Depends on and exposes the APIs of both `rain-kotlin-core` and `rain-kotlin-client-okhttp`
   - Does not have its own logic
 
 This structure allows replacing the SDK's default HTTP client without pulling in unnecessary dependencies.
@@ -512,17 +512,17 @@ This structure allows replacing the SDK's default HTTP client without pulling in
 
 To use a customized `OkHttpClient`:
 
-1. Replace your [`rain-hello-world-kotlin` dependency](#installation) with `rain-hello-world-kotlin-core`
-2. Copy `rain-hello-world-kotlin-client-okhttp`'s [`OkHttpClient`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
-3. Construct [`RainHelloWorldClientImpl`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientImpl.kt) or [`RainHelloWorldClientAsyncImpl`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientAsyncImpl.kt), similarly to [`RainHelloWorldOkHttpClient`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/RainHelloWorldOkHttpClient.kt) or [`RainHelloWorldOkHttpClientAsync`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/RainHelloWorldOkHttpClientAsync.kt), using your customized client
+1. Replace your [`rain-kotlin` dependency](#installation) with `rain-kotlin-core`
+2. Copy `rain-kotlin-client-okhttp`'s [`OkHttpClient`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/OkHttpClient.kt) class into your code and customize it
+3. Construct [`RainClientImpl`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientImpl.kt) or [`RainClientAsyncImpl`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientAsyncImpl.kt), similarly to [`RainOkHttpClient`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/RainOkHttpClient.kt) or [`RainOkHttpClientAsync`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/RainOkHttpClientAsync.kt), using your customized client
 
 ### Completely custom HTTP client
 
 To use a completely custom HTTP client:
 
-1. Replace your [`rain-hello-world-kotlin` dependency](#installation) with `rain-hello-world-kotlin-core`
-2. Write a class that implements the [`HttpClient`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/core/http/HttpClient.kt) interface
-3. Construct [`RainHelloWorldClientImpl`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientImpl.kt) or [`RainHelloWorldClientAsyncImpl`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/client/RainHelloWorldClientAsyncImpl.kt), similarly to [`RainHelloWorldOkHttpClient`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/RainHelloWorldOkHttpClient.kt) or [`RainHelloWorldOkHttpClientAsync`](rain-hello-world-kotlin-client-okhttp/src/main/kotlin/com/rain_hello_world/api/client/okhttp/RainHelloWorldOkHttpClientAsync.kt), using your new client class
+1. Replace your [`rain-kotlin` dependency](#installation) with `rain-kotlin-core`
+2. Write a class that implements the [`HttpClient`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/core/http/HttpClient.kt) interface
+3. Construct [`RainClientImpl`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientImpl.kt) or [`RainClientAsyncImpl`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/client/RainClientAsyncImpl.kt), similarly to [`RainOkHttpClient`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/RainOkHttpClient.kt) or [`RainOkHttpClientAsync`](rain-kotlin-client-okhttp/src/main/kotlin/com/rain_sdk/api/client/okhttp/RainOkHttpClientAsync.kt), using your new client class
 
 ## Undocumented API functionality
 
@@ -533,8 +533,8 @@ The SDK is typed for convenient usage of the documented API. However, it also su
 To set undocumented parameters, call the `putAdditionalHeader`, `putAdditionalQueryParam`, or `putAdditionalBodyProperty` methods on any `Params` class:
 
 ```kotlin
-import com.rain_hello_world.api.core.JsonValue
-import com.rain_hello_world.api.models.companies.CompanyChargeParams
+import com.rain_sdk.api.core.JsonValue
+import com.rain_sdk.api.models.companies.CompanyChargeParams
 
 val params: CompanyChargeParams = CompanyChargeParams.builder()
     .putAdditionalHeader("Secret-Header", "42")
@@ -548,9 +548,9 @@ These can be accessed on the built object later using the `_additionalHeaders()`
 To set undocumented parameters on _nested_ headers, query params, or body classes, call the `putAdditionalProperty` method on the nested class:
 
 ```kotlin
-import com.rain_hello_world.api.core.JsonValue
-import com.rain_hello_world.api.models.applications.company.CompanyCreateParams
-import com.rain_hello_world.api.models.applications.company.PhysicalAddress
+import com.rain_sdk.api.core.JsonValue
+import com.rain_sdk.api.models.applications.company.CompanyCreateParams
+import com.rain_sdk.api.models.applications.company.PhysicalAddress
 
 val params: CompanyCreateParams = CompanyCreateParams.builder()
     .address(PhysicalAddress.builder()
@@ -561,11 +561,11 @@ val params: CompanyCreateParams = CompanyCreateParams.builder()
 
 These properties can be accessed on the nested built object later using the `_additionalProperties()` method.
 
-To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/core/Values.kt) object to its setter:
+To set a documented parameter or property to an undocumented or not yet supported _value_, pass a [`JsonValue`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/core/Values.kt) object to its setter:
 
 ```kotlin
-import com.rain_hello_world.api.models.companies.CompanyChargeParams
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
+import com.rain_sdk.api.models.companies.CompanyChargeParams
+import com.rain_sdk.api.models.companies.IssuingChargeCreateBody
 
 val params: CompanyChargeParams = CompanyChargeParams.builder()
     .issuingChargeCreateBody(IssuingChargeCreateBody.builder()
@@ -575,10 +575,10 @@ val params: CompanyChargeParams = CompanyChargeParams.builder()
     .build()
 ```
 
-The most straightforward way to create a [`JsonValue`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/core/Values.kt) is using its `from(...)` method:
+The most straightforward way to create a [`JsonValue`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/core/Values.kt) is using its `from(...)` method:
 
 ```kotlin
-import com.rain_hello_world.api.core.JsonValue
+import com.rain_sdk.api.core.JsonValue
 
 // Create primitive JSON values
 val nullValue: JsonValue = JsonValue.from(null)
@@ -612,12 +612,12 @@ val complexValue: JsonValue = JsonValue.from(mapOf(
 
 Normally a `Builder` class's `build` method will throw [`IllegalStateException`](https://docs.oracle.com/javase/8/docs/api/java/lang/IllegalStateException.html) if any required parameter or property is unset.
 
-To forcibly omit a required parameter or property, pass [`JsonMissing`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/core/Values.kt):
+To forcibly omit a required parameter or property, pass [`JsonMissing`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/core/Values.kt):
 
 ```kotlin
-import com.rain_hello_world.api.core.JsonMissing
-import com.rain_hello_world.api.models.companies.CompanyChargeParams
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateBody
+import com.rain_sdk.api.core.JsonMissing
+import com.rain_sdk.api.models.companies.CompanyChargeParams
+import com.rain_sdk.api.models.companies.IssuingChargeCreateBody
 
 val params: CompanyChargeParams = CompanyChargeParams.builder()
     .issuingChargeCreateBody(IssuingChargeCreateBody.builder()
@@ -633,10 +633,10 @@ val params: CompanyChargeParams = CompanyChargeParams.builder()
 To access undocumented response properties, call the `_additionalProperties()` method:
 
 ```kotlin
-import com.rain_hello_world.api.core.JsonBoolean
-import com.rain_hello_world.api.core.JsonNull
-import com.rain_hello_world.api.core.JsonNumber
-import com.rain_hello_world.api.core.JsonValue
+import com.rain_sdk.api.core.JsonBoolean
+import com.rain_sdk.api.core.JsonNull
+import com.rain_sdk.api.core.JsonNumber
+import com.rain_sdk.api.core.JsonValue
 
 val additionalProperties: Map<String, JsonValue> = client.companies().charge(params)._additionalProperties()
 val secretPropertyValue: JsonValue = additionalProperties.get("secretProperty")
@@ -653,7 +653,7 @@ val result = when (secretPropertyValue) {
 To access a property's raw JSON value, which may be undocumented, call its `_` prefixed method:
 
 ```kotlin
-import com.rain_hello_world.api.core.JsonField
+import com.rain_sdk.api.core.JsonField
 
 val field: JsonField<Any> = client.companies().charge(params)._field()
 
@@ -675,12 +675,12 @@ if (field.isMissing()) {
 
 In rare cases, the API may return a response that doesn't match the expected type. For example, the SDK may expect a property to contain a `String`, but the API could return something else.
 
-By default, the SDK will not throw an exception in this case. It will throw [`RainHelloWorldInvalidDataException`](rain-hello-world-kotlin-core/src/main/kotlin/com/rain_hello_world/api/errors/RainHelloWorldInvalidDataException.kt) only if you directly access the property.
+By default, the SDK will not throw an exception in this case. It will throw [`RainInvalidDataException`](rain-kotlin-core/src/main/kotlin/com/rain_sdk/api/errors/RainInvalidDataException.kt) only if you directly access the property.
 
 If you would prefer to check that the response is completely well-typed upfront, then either call `validate()`:
 
 ```kotlin
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
+import com.rain_sdk.api.models.companies.IssuingChargeCreateResponse
 
 val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies().charge(params).validate()
 ```
@@ -688,7 +688,7 @@ val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies(
 Or configure the method call to validate the response using the `responseValidation` method:
 
 ```kotlin
-import com.rain_hello_world.api.models.companies.IssuingChargeCreateResponse
+import com.rain_sdk.api.models.companies.IssuingChargeCreateResponse
 
 val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies().charge(
   params, RequestOptions.builder().responseValidation(true).build()
@@ -698,10 +698,10 @@ val issuingChargeCreateResponse: IssuingChargeCreateResponse = client.companies(
 Or configure the default for all method calls at the client level:
 
 ```kotlin
-import com.rain_hello_world.api.client.RainHelloWorldClient
-import com.rain_hello_world.api.client.okhttp.RainHelloWorldOkHttpClient
+import com.rain_sdk.api.client.RainClient
+import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 
-val client: RainHelloWorldClient = RainHelloWorldOkHttpClient.builder()
+val client: RainClient = RainOkHttpClient.builder()
     .fromEnv()
     .responseValidation(true)
     .build()

@@ -1,11 +1,11 @@
-rootProject.name = "rain-hello-world-kotlin-root"
+rootProject.name = "rain-kotlin-root"
 
 val projectNames = rootDir.listFiles()
     ?.asSequence()
     .orEmpty()
     .filter { file ->
         file.isDirectory &&
-        file.name.startsWith("rain-hello-world-kotlin") &&
+        file.name.startsWith("rain-kotlin") &&
         file.listFiles()?.asSequence().orEmpty().any { it.name == "build.gradle.kts" }
     }
     .map { it.name }
