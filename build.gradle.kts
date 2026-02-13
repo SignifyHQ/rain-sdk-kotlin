@@ -8,7 +8,7 @@ repositories {
 }
 
 allprojects {
-    group = "com.rain_hello_world.api"
+    group = "com.rain_sdk.api"
     version = "0.0.1"
 }
 
@@ -32,7 +32,7 @@ subprojects {
 // Avoid race conditions between `dokkaHtmlCollector` and `dokkaJavadocJar` tasks
 tasks.named("dokkaHtmlCollector").configure {
     subprojects.flatMap { it.tasks }
-        .filter { it.project.name != "rain-hello-world-kotlin" && it.name == "dokkaJavadocJar" }
+        .filter { it.project.name != "rain-kotlin" && it.name == "dokkaJavadocJar" }
         .forEach { mustRunAfter(it) }
 }
 
