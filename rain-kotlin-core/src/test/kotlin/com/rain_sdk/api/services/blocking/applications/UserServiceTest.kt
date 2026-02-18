@@ -30,27 +30,22 @@ internal class UserServiceTest {
 
         val issuingUser =
             userService.create(
-                UserCreateParams.builder()
-                    .body(
-                        UserCreateParams.Body.UsingSumsubShareToken.builder()
-                            .accountPurpose("accountPurpose")
-                            .annualSalary("annualSalary")
-                            .expectedMonthlyVolume("expectedMonthlyVolume")
-                            .ipAddress("ipAddress")
-                            .isTermsOfServiceAccepted(
-                                UserCreateParams.Body.UsingSumsubShareToken.IsTermsOfServiceAccepted
-                                    .TRUE
-                            )
-                            .occupation("occupation")
-                            .sumsubShareToken("sumsubShareToken")
-                            .chainId("chainId")
-                            .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                            .hasExistingDocuments(true)
-                            .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
-                            .sourceKey("x")
-                            .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
-                            .build()
+                UserCreateParams.Body.UsingSumsubShareToken.builder()
+                    .accountPurpose("accountPurpose")
+                    .annualSalary("annualSalary")
+                    .expectedMonthlyVolume("expectedMonthlyVolume")
+                    .ipAddress("ipAddress")
+                    .isTermsOfServiceAccepted(
+                        UserCreateParams.Body.UsingSumsubShareToken.IsTermsOfServiceAccepted.TRUE
                     )
+                    .occupation("occupation")
+                    .sumsubShareToken("sumsubShareToken")
+                    .chainId("chainId")
+                    .contractAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
+                    .hasExistingDocuments(true)
+                    .solanaAddress("WRktL2iKFTHZg6qNBPzV1b1WLYwfnZ5JSHo2UV8L1R")
+                    .sourceKey("x")
+                    .walletAddress("0xE1CB97d8EBbDbaAae6d9B1ca0D1cFaADcCcbdaDa")
                     .build()
             )
 
