@@ -42,6 +42,31 @@ interface UserService {
     ): IssuingUser
 
     /** @see create */
+    fun create(
+        body: UserCreateParams.Body,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IssuingUser = create(UserCreateParams.builder().body(body).build(), requestOptions)
+
+    /** @see create */
+    fun create(
+        usingSumsubShareToken: UserCreateParams.Body.UsingSumsubShareToken,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IssuingUser =
+        create(UserCreateParams.Body.ofUsingSumsubShareToken(usingSumsubShareToken), requestOptions)
+
+    /** @see create */
+    fun create(
+        unionMember1: UserCreateParams.Body.UnionMember1,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IssuingUser = create(UserCreateParams.Body.ofUnionMember1(unionMember1), requestOptions)
+
+    /** @see create */
+    fun create(
+        usingApi: UserCreateParams.Body.UsingApi,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): IssuingUser = create(UserCreateParams.Body.ofUsingApi(usingApi), requestOptions)
+
+    /** @see create */
     fun create(requestOptions: RequestOptions): IssuingUser =
         create(UserCreateParams.none(), requestOptions)
 
@@ -154,6 +179,41 @@ interface UserService {
             params: UserCreateParams = UserCreateParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<IssuingUser>
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            body: UserCreateParams.Body,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IssuingUser> =
+            create(UserCreateParams.builder().body(body).build(), requestOptions)
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            usingSumsubShareToken: UserCreateParams.Body.UsingSumsubShareToken,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IssuingUser> =
+            create(
+                UserCreateParams.Body.ofUsingSumsubShareToken(usingSumsubShareToken),
+                requestOptions,
+            )
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            unionMember1: UserCreateParams.Body.UnionMember1,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IssuingUser> =
+            create(UserCreateParams.Body.ofUnionMember1(unionMember1), requestOptions)
+
+        /** @see create */
+        @MustBeClosed
+        fun create(
+            usingApi: UserCreateParams.Body.UsingApi,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<IssuingUser> =
+            create(UserCreateParams.Body.ofUsingApi(usingApi), requestOptions)
 
         /** @see create */
         @MustBeClosed
