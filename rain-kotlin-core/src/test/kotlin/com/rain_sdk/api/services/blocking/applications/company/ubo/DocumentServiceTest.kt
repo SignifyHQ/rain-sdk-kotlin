@@ -2,24 +2,17 @@
 
 package com.rain_sdk.api.services.blocking.applications.company.ubo
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 import com.rain_sdk.api.models.applications.company.ubo.document.DocumentUploadParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class DocumentServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun upload() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val documentService = client.applications().company().ubo().document()
 
         documentService.upload(

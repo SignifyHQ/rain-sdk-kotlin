@@ -2,7 +2,6 @@
 
 package com.rain_sdk.api.services.blocking
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 import com.rain_sdk.api.models.applications.company.PhysicalAddress
 import com.rain_sdk.api.models.cards.IssuingCardLimit
@@ -16,19 +15,13 @@ import com.rain_sdk.api.models.users.UserListParams
 import com.rain_sdk.api.models.users.UserUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class UserServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun create() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val issuingUser =
@@ -60,11 +53,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val issuingUser = userService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -75,11 +64,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val issuingUser =
@@ -113,11 +98,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val issuingUsers =
@@ -135,11 +116,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun delete() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         userService.delete("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -148,11 +125,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun createCard() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val issuingCard =
@@ -208,11 +181,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun createCharge() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val issuingChargeCreateResponse =
@@ -234,11 +203,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun initiatePayment() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val response =
@@ -257,11 +222,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveBalances() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val response = userService.retrieveBalances("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -272,11 +233,7 @@ internal class UserServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieveContracts() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val userService = client.users()
 
         val issuingContracts = userService.retrieveContracts("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")

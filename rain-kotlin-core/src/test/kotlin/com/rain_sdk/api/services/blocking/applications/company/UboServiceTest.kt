@@ -2,7 +2,6 @@
 
 package com.rain_sdk.api.services.blocking.applications.company
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 import com.rain_sdk.api.models.applications.company.PhysicalAddress
 import com.rain_sdk.api.models.applications.company.ubo.UboUpdateParams
@@ -10,19 +9,13 @@ import com.rain_sdk.api.models.applications.company.ubo.UboUploadDocumentParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class UboServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val uboService = client.applications().company().ubo()
 
         val issuingCompany =
@@ -56,11 +49,7 @@ internal class UboServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun uploadDocument() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val uboService = client.applications().company().ubo()
 
         uboService.uploadDocument(
