@@ -14,7 +14,7 @@ import org.junit.jupiter.api.Test
 
 internal class CardServiceTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieve() {
         val client = RainOkHttpClient.builder().apiKey("My API Key").build()
@@ -25,7 +25,7 @@ internal class CardServiceTest {
         issuingCard.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun update() {
         val client = RainOkHttpClient.builder().apiKey("My API Key").build()
@@ -64,7 +64,7 @@ internal class CardServiceTest {
         issuingCard.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun list() {
         val client = RainOkHttpClient.builder().apiKey("My API Key").build()
@@ -84,7 +84,7 @@ internal class CardServiceTest {
         issuingCards.forEach { it.validate() }
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun retrieveSecrets() {
         val client = RainOkHttpClient.builder().apiKey("My API Key").build()

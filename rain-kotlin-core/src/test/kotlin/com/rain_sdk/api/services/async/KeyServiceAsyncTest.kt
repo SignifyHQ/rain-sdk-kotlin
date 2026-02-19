@@ -9,7 +9,7 @@ import org.junit.jupiter.api.Test
 
 internal class KeyServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun create() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -23,7 +23,7 @@ internal class KeyServiceAsyncTest {
         key.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun delete() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()

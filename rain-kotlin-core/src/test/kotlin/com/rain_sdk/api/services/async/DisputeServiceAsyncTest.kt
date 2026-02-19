@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class DisputeServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun retrieve() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -21,7 +21,7 @@ internal class DisputeServiceAsyncTest {
         issuingDispute.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun update() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -36,7 +36,7 @@ internal class DisputeServiceAsyncTest {
         )
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun list() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
