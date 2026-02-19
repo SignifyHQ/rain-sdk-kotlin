@@ -34,7 +34,7 @@ internal class ReceiptServiceAsyncTest {
         assertThat(receipt.body()).hasContent("abc")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun upload() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()

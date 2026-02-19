@@ -34,7 +34,7 @@ internal class EvidenceServiceTest {
         assertThat(evidences.body()).hasContent("abc")
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     fun upload() {
         val client = RainOkHttpClient.builder().apiKey("My API Key").build()

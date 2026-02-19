@@ -16,7 +16,7 @@ import org.junit.jupiter.api.Test
 
 internal class CompanyServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun retrieve() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -27,7 +27,7 @@ internal class CompanyServiceAsyncTest {
         issuingCompany.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun update() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -55,7 +55,7 @@ internal class CompanyServiceAsyncTest {
         issuingCompany.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun list() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -67,7 +67,7 @@ internal class CompanyServiceAsyncTest {
         issuingCompanies.forEach { it.validate() }
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun charge() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -89,7 +89,7 @@ internal class CompanyServiceAsyncTest {
         issuingChargeCreateResponse.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun createUser() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -124,7 +124,7 @@ internal class CompanyServiceAsyncTest {
         issuingUser.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun initiatePayment() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -143,7 +143,7 @@ internal class CompanyServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun retrieveBalances() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -154,7 +154,7 @@ internal class CompanyServiceAsyncTest {
         response.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun retrieveContracts() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()

@@ -10,7 +10,7 @@ import org.junit.jupiter.api.Test
 
 internal class SignatureServiceAsyncTest {
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun retrievePaymentSignature() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
@@ -31,7 +31,7 @@ internal class SignatureServiceAsyncTest {
         issuingSignature.validate()
     }
 
-    @Disabled("Prism tests are disabled")
+    @Disabled("Mock server tests are disabled")
     @Test
     suspend fun retrieveWithdrawalSignature() {
         val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
