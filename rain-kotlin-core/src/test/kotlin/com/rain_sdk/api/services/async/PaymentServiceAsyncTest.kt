@@ -2,24 +2,17 @@
 
 package com.rain_sdk.api.services.async
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClientAsync
 import com.rain_sdk.api.models.payments.PaymentInitiateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class PaymentServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun initiate() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val paymentServiceAsync = client.payments()
 
         val response =

@@ -8,16 +8,13 @@ import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.stubFor
 import com.github.tomakehurst.wiremock.junit5.WireMockRuntimeInfo
 import com.github.tomakehurst.wiremock.junit5.WireMockTest
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClientAsync
 import com.rain_sdk.api.models.disputes.evidence.EvidenceUploadParams
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 import org.junit.jupiter.api.parallel.ResourceLock
 
-@ExtendWith(TestServerExtension::class)
 @WireMockTest
 @ResourceLock("https://github.com/wiremock/wiremock/issues/169")
 internal class EvidenceServiceAsyncTest {
@@ -40,11 +37,7 @@ internal class EvidenceServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun upload() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val evidenceServiceAsync = client.disputes().evidence()
 
         evidenceServiceAsync.upload(

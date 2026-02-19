@@ -2,7 +2,6 @@
 
 package com.rain_sdk.api.services.async
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClientAsync
 import com.rain_sdk.api.models.applications.company.PhysicalAddress
 import com.rain_sdk.api.models.companies.CompanyChargeParams
@@ -14,19 +13,13 @@ import com.rain_sdk.api.models.companies.IssuingChargeCreateBody
 import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class CompanyServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrieve() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val companyServiceAsync = client.companies()
 
         val issuingCompany = companyServiceAsync.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -37,11 +30,7 @@ internal class CompanyServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun update() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val companyServiceAsync = client.companies()
 
         val issuingCompany =
@@ -69,11 +58,7 @@ internal class CompanyServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun list() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val companyServiceAsync = client.companies()
 
         val issuingCompanies =
@@ -85,11 +70,7 @@ internal class CompanyServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun charge() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val companyServiceAsync = client.companies()
 
         val issuingChargeCreateResponse =
@@ -111,11 +92,7 @@ internal class CompanyServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun createUser() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val companyServiceAsync = client.companies()
 
         val issuingUser =
@@ -150,11 +127,7 @@ internal class CompanyServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun initiatePayment() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val companyServiceAsync = client.companies()
 
         val response =
@@ -173,11 +146,7 @@ internal class CompanyServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrieveBalances() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val companyServiceAsync = client.companies()
 
         val response = companyServiceAsync.retrieveBalances("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -188,11 +157,7 @@ internal class CompanyServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrieveContracts() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val companyServiceAsync = client.companies()
 
         val issuingContracts =

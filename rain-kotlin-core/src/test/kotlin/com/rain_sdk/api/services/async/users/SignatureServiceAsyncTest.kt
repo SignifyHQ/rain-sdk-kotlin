@@ -2,25 +2,18 @@
 
 package com.rain_sdk.api.services.async.users
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClientAsync
 import com.rain_sdk.api.models.users.signatures.SignatureRetrievePaymentSignatureParams
 import com.rain_sdk.api.models.users.signatures.SignatureRetrieveWithdrawalSignatureParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class SignatureServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrievePaymentSignature() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val signatureServiceAsync = client.users().signatures()
 
         val issuingSignature =
@@ -40,11 +33,7 @@ internal class SignatureServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrieveWithdrawalSignature() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val signatureServiceAsync = client.users().signatures()
 
         val issuingSignature =

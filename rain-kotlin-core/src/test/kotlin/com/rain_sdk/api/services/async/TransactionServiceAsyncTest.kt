@@ -2,7 +2,6 @@
 
 package com.rain_sdk.api.services.async
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClientAsync
 import com.rain_sdk.api.models.transactions.TransactionCreateDisputeParams
 import com.rain_sdk.api.models.transactions.TransactionListParams
@@ -10,19 +9,13 @@ import com.rain_sdk.api.models.transactions.TransactionUpdateParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class TransactionServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrieve() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val transactionServiceAsync = client.transactions()
 
         val issuingTransaction =
@@ -34,11 +27,7 @@ internal class TransactionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun update() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val transactionServiceAsync = client.transactions()
 
         transactionServiceAsync.update(
@@ -52,11 +41,7 @@ internal class TransactionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun list() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val transactionServiceAsync = client.transactions()
 
         val issuingTransactions =
@@ -82,11 +67,7 @@ internal class TransactionServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun createDispute() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val transactionServiceAsync = client.transactions()
 
         val issuingDispute =

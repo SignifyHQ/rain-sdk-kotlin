@@ -2,25 +2,18 @@
 
 package com.rain_sdk.api.services.blocking
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClient
 import com.rain_sdk.api.models.disputes.DisputeListParams
 import com.rain_sdk.api.models.disputes.DisputeUpdateParams
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class DisputeServiceTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     fun retrieve() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val disputeService = client.disputes()
 
         val issuingDispute = disputeService.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -31,11 +24,7 @@ internal class DisputeServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun update() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val disputeService = client.disputes()
 
         disputeService.update(
@@ -50,11 +39,7 @@ internal class DisputeServiceTest {
     @Disabled("Prism tests are disabled")
     @Test
     fun list() {
-        val client =
-            RainOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClient.builder().apiKey("My API Key").build()
         val disputeService = client.disputes()
 
         val issuingDisputes =

@@ -2,7 +2,6 @@
 
 package com.rain_sdk.api.services.async.applications
 
-import com.rain_sdk.api.TestServerExtension
 import com.rain_sdk.api.client.okhttp.RainOkHttpClientAsync
 import com.rain_sdk.api.models.applications.company.PhysicalAddress
 import com.rain_sdk.api.models.applications.user.UserCreateParams
@@ -13,19 +12,13 @@ import com.rain_sdk.api.models.applications.user.UserUploadDocumentParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Disabled
 import org.junit.jupiter.api.Test
-import org.junit.jupiter.api.extension.ExtendWith
 
-@ExtendWith(TestServerExtension::class)
 internal class UserServiceAsyncTest {
 
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun create() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val userServiceAsync = client.applications().user()
 
         val issuingUser =
@@ -55,11 +48,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun retrieve() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val userServiceAsync = client.applications().user()
 
         val user = userServiceAsync.retrieve("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -70,11 +59,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun update() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val userServiceAsync = client.applications().user()
 
         val issuingUser =
@@ -113,11 +98,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun initiate() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val userServiceAsync = client.applications().user()
 
         val issuingUser =
@@ -136,11 +117,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun reapply() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val userServiceAsync = client.applications().user()
 
         val issuingUser =
@@ -177,11 +154,7 @@ internal class UserServiceAsyncTest {
     @Disabled("Prism tests are disabled")
     @Test
     suspend fun uploadDocument() {
-        val client =
-            RainOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = RainOkHttpClientAsync.builder().apiKey("My API Key").build()
         val userServiceAsync = client.applications().user()
 
         userServiceAsync.uploadDocument(
