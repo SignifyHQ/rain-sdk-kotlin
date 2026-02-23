@@ -67,6 +67,7 @@ class ReceiptServiceImpl internal constructor(private val clientOptions: ClientO
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("transactions", params._pathParam(0), "receipt")
+                    .putHeader("Accept", "application/octet-stream")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))

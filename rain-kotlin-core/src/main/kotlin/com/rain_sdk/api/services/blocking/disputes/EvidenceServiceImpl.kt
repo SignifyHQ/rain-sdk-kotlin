@@ -64,6 +64,7 @@ class EvidenceServiceImpl internal constructor(private val clientOptions: Client
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
                     .addPathSegments("disputes", params._pathParam(0), "evidence")
+                    .putHeader("Accept", "application/octet-stream")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
