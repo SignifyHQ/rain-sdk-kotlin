@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless.
+
 package com.rain_sdk.api.core.http
 
 import com.rain_sdk.api.core.DefaultSleeper
