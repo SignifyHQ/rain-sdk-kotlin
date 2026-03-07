@@ -55,7 +55,7 @@ internal class UboServiceTest {
         uboService.uploadDocument(
             UboUploadDocumentParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .email("email")
                 .country("xxx")
                 .side(UboUploadDocumentParams.Side.FRONT)

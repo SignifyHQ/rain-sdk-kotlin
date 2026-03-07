@@ -300,7 +300,7 @@ internal class CompanyServiceTest {
         companyService.uploadDocument(
             CompanyUploadDocumentParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .country("xxx")
                 .name("name")
                 .side(CompanyUploadDocumentParams.Side.FRONT)

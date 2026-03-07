@@ -43,7 +43,7 @@ internal class ReceiptServiceAsyncTest {
         receiptServiceAsync.upload(
             ReceiptUploadParams.builder()
                 .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .receipt("some content".byteInputStream())
+                .receipt("Example data".byteInputStream())
                 .build()
         )
     }

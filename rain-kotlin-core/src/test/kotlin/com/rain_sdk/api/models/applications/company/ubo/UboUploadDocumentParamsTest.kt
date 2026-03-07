@@ -13,7 +13,7 @@ internal class UboUploadDocumentParamsTest {
     fun create() {
         UboUploadDocumentParams.builder()
             .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .document("some content".byteInputStream())
+            .document("Example data".byteInputStream())
             .email("email")
             .country("xxx")
             .side(UboUploadDocumentParams.Side.FRONT)
@@ -26,7 +26,7 @@ internal class UboUploadDocumentParamsTest {
         val params =
             UboUploadDocumentParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .email("email")
                 .build()
 
@@ -40,7 +40,7 @@ internal class UboUploadDocumentParamsTest {
         val params =
             UboUploadDocumentParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .email("email")
                 .country("xxx")
                 .side(UboUploadDocumentParams.Side.FRONT)
@@ -59,7 +59,7 @@ internal class UboUploadDocumentParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "document" to MultipartField.of("some content".byteInputStream()),
+                        "document" to MultipartField.of("Example data".byteInputStream()),
                         "email" to MultipartField.of("email"),
                         "country" to MultipartField.of("xxx"),
                         "side" to MultipartField.of(UboUploadDocumentParams.Side.FRONT),
@@ -76,7 +76,7 @@ internal class UboUploadDocumentParamsTest {
         val params =
             UboUploadDocumentParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .email("email")
                 .build()
 
@@ -92,7 +92,7 @@ internal class UboUploadDocumentParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "document" to MultipartField.of("some content".byteInputStream()),
+                        "document" to MultipartField.of("Example data".byteInputStream()),
                         "email" to MultipartField.of("email"),
                     )
                     .mapValues { (_, field) ->

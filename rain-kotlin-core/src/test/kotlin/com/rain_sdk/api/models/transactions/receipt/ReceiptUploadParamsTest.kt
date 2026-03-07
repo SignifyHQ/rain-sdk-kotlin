@@ -13,7 +13,7 @@ internal class ReceiptUploadParamsTest {
     fun create() {
         ReceiptUploadParams.builder()
             .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .receipt("some content".byteInputStream())
+            .receipt("Example data".byteInputStream())
             .build()
     }
 
@@ -22,7 +22,7 @@ internal class ReceiptUploadParamsTest {
         val params =
             ReceiptUploadParams.builder()
                 .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .receipt("some content".byteInputStream())
+                .receipt("Example data".byteInputStream())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -35,7 +35,7 @@ internal class ReceiptUploadParamsTest {
         val params =
             ReceiptUploadParams.builder()
                 .transactionId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .receipt("some content".byteInputStream())
+                .receipt("Example data".byteInputStream())
                 .build()
 
         val body = params._body()
@@ -49,7 +49,7 @@ internal class ReceiptUploadParamsTest {
                 InputStream::class.java,
             )
             .isEqualTo(
-                mapOf("receipt" to MultipartField.of("some content".byteInputStream())).mapValues {
+                mapOf("receipt" to MultipartField.of("Example data".byteInputStream())).mapValues {
                     (_, field) ->
                     field.map { (it as? ByteArray)?.inputStream() ?: it }
                 }
