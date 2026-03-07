@@ -13,7 +13,7 @@ internal class EvidenceUploadParamsTest {
     fun create() {
         EvidenceUploadParams.builder()
             .disputeId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .evidence("some content".byteInputStream())
+            .evidence("Example data".byteInputStream())
             .name("name")
             .type("type")
             .build()
@@ -24,7 +24,7 @@ internal class EvidenceUploadParamsTest {
         val params =
             EvidenceUploadParams.builder()
                 .disputeId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .evidence("some content".byteInputStream())
+                .evidence("Example data".byteInputStream())
                 .name("name")
                 .type("type")
                 .build()
@@ -39,7 +39,7 @@ internal class EvidenceUploadParamsTest {
         val params =
             EvidenceUploadParams.builder()
                 .disputeId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .evidence("some content".byteInputStream())
+                .evidence("Example data".byteInputStream())
                 .name("name")
                 .type("type")
                 .build()
@@ -56,7 +56,7 @@ internal class EvidenceUploadParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "evidence" to MultipartField.of("some content".byteInputStream()),
+                        "evidence" to MultipartField.of("Example data".byteInputStream()),
                         "name" to MultipartField.of("name"),
                         "type" to MultipartField.of("type"),
                     )

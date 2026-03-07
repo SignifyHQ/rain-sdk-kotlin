@@ -13,7 +13,7 @@ internal class UserUploadDocumentParamsTest {
     fun create() {
         UserUploadDocumentParams.builder()
             .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .document("some content".byteInputStream())
+            .document("Example data".byteInputStream())
             .country("xxx")
             .name("name")
             .side(UserUploadDocumentParams.Side.FRONT)
@@ -26,7 +26,7 @@ internal class UserUploadDocumentParamsTest {
         val params =
             UserUploadDocumentParams.builder()
                 .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -39,7 +39,7 @@ internal class UserUploadDocumentParamsTest {
         val params =
             UserUploadDocumentParams.builder()
                 .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .country("xxx")
                 .name("name")
                 .side(UserUploadDocumentParams.Side.FRONT)
@@ -58,7 +58,7 @@ internal class UserUploadDocumentParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "document" to MultipartField.of("some content".byteInputStream()),
+                        "document" to MultipartField.of("Example data".byteInputStream()),
                         "country" to MultipartField.of("xxx"),
                         "name" to MultipartField.of("name"),
                         "side" to MultipartField.of(UserUploadDocumentParams.Side.FRONT),
@@ -75,7 +75,7 @@ internal class UserUploadDocumentParamsTest {
         val params =
             UserUploadDocumentParams.builder()
                 .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .build()
 
         val body = params._body()
@@ -89,7 +89,7 @@ internal class UserUploadDocumentParamsTest {
                 InputStream::class.java,
             )
             .isEqualTo(
-                mapOf("document" to MultipartField.of("some content".byteInputStream()))
+                mapOf("document" to MultipartField.of("Example data".byteInputStream()))
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }
                     }

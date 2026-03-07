@@ -19,7 +19,7 @@ internal class DocumentServiceAsyncTest {
             DocumentUploadParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .uboId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .country("xxx")
                 .side(DocumentUploadParams.Side.FRONT)
                 .type(DocumentUploadParams.Type.ID_CARD)

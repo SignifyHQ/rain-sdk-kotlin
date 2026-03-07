@@ -14,7 +14,7 @@ internal class DocumentUploadParamsTest {
         DocumentUploadParams.builder()
             .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
             .uboId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .document("some content".byteInputStream())
+            .document("Example data".byteInputStream())
             .country("xxx")
             .side(DocumentUploadParams.Side.FRONT)
             .type(DocumentUploadParams.Type.ID_CARD)
@@ -27,7 +27,7 @@ internal class DocumentUploadParamsTest {
             DocumentUploadParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .uboId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -42,7 +42,7 @@ internal class DocumentUploadParamsTest {
             DocumentUploadParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .uboId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .country("xxx")
                 .side(DocumentUploadParams.Side.FRONT)
                 .type(DocumentUploadParams.Type.ID_CARD)
@@ -60,7 +60,7 @@ internal class DocumentUploadParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "document" to MultipartField.of("some content".byteInputStream()),
+                        "document" to MultipartField.of("Example data".byteInputStream()),
                         "country" to MultipartField.of("xxx"),
                         "side" to MultipartField.of(DocumentUploadParams.Side.FRONT),
                         "type" to MultipartField.of(DocumentUploadParams.Type.ID_CARD),
@@ -77,7 +77,7 @@ internal class DocumentUploadParamsTest {
             DocumentUploadParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
                 .uboId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .build()
 
         val body = params._body()
@@ -91,7 +91,7 @@ internal class DocumentUploadParamsTest {
                 InputStream::class.java,
             )
             .isEqualTo(
-                mapOf("document" to MultipartField.of("some content".byteInputStream()))
+                mapOf("document" to MultipartField.of("Example data".byteInputStream()))
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }
                     }

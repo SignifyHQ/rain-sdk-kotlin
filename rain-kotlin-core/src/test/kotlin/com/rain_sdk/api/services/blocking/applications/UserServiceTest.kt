@@ -160,7 +160,7 @@ internal class UserServiceTest {
         userService.uploadDocument(
             UserUploadDocumentParams.builder()
                 .userId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .country("xxx")
                 .name("name")
                 .side(UserUploadDocumentParams.Side.FRONT)

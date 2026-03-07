@@ -13,7 +13,7 @@ internal class CompanyUploadDocumentParamsTest {
     fun create() {
         CompanyUploadDocumentParams.builder()
             .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-            .document("some content".byteInputStream())
+            .document("Example data".byteInputStream())
             .country("xxx")
             .name("name")
             .side(CompanyUploadDocumentParams.Side.FRONT)
@@ -26,7 +26,7 @@ internal class CompanyUploadDocumentParamsTest {
         val params =
             CompanyUploadDocumentParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .build()
 
         assertThat(params._pathParam(0)).isEqualTo("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
@@ -39,7 +39,7 @@ internal class CompanyUploadDocumentParamsTest {
         val params =
             CompanyUploadDocumentParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .country("xxx")
                 .name("name")
                 .side(CompanyUploadDocumentParams.Side.FRONT)
@@ -58,7 +58,7 @@ internal class CompanyUploadDocumentParamsTest {
             )
             .isEqualTo(
                 mapOf(
-                        "document" to MultipartField.of("some content".byteInputStream()),
+                        "document" to MultipartField.of("Example data".byteInputStream()),
                         "country" to MultipartField.of("xxx"),
                         "name" to MultipartField.of("name"),
                         "side" to MultipartField.of(CompanyUploadDocumentParams.Side.FRONT),
@@ -76,7 +76,7 @@ internal class CompanyUploadDocumentParamsTest {
         val params =
             CompanyUploadDocumentParams.builder()
                 .companyId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .document("some content".byteInputStream())
+                .document("Example data".byteInputStream())
                 .build()
 
         val body = params._body()
@@ -90,7 +90,7 @@ internal class CompanyUploadDocumentParamsTest {
                 InputStream::class.java,
             )
             .isEqualTo(
-                mapOf("document" to MultipartField.of("some content".byteInputStream()))
+                mapOf("document" to MultipartField.of("Example data".byteInputStream()))
                     .mapValues { (_, field) ->
                         field.map { (it as? ByteArray)?.inputStream() ?: it }
                     }

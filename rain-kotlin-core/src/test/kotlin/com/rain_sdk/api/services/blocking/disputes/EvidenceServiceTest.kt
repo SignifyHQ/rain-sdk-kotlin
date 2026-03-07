@@ -43,7 +43,7 @@ internal class EvidenceServiceTest {
         evidenceService.upload(
             EvidenceUploadParams.builder()
                 .disputeId("182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e")
-                .evidence("some content".byteInputStream())
+                .evidence("Example data".byteInputStream())
                 .name("name")
                 .type("type")
                 .build()
