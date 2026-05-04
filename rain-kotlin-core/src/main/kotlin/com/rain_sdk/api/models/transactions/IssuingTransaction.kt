@@ -88,6 +88,30 @@ private constructor(
 
     fun _json(): JsonValue? = _json
 
+    /**
+     * Maps this instance's current variant to a value of type [T] using the given [visitor].
+     *
+     * Note that this method is _not_ forwards compatible with new variants from the API, unless
+     * [visitor] overrides [Visitor.unknown]. To handle variants not known to this version of the
+     * SDK gracefully, consider overriding [Visitor.unknown]:
+     * ```kotlin
+     * import com.rain_sdk.api.core.JsonValue
+     *
+     * val result: String? = issuingTransaction.accept(object : IssuingTransaction.Visitor<String?> {
+     *     override fun visitSpend(spend: Spend): String? = spend.toString()
+     *
+     *     // ...
+     *
+     *     override fun unknown(json: JsonValue?): String? {
+     *         // Or inspect the `json`.
+     *         return null
+     *     }
+     * })
+     * ```
+     *
+     * @throws RainInvalidDataException if [Visitor.unknown] is not overridden in [visitor] and the
+     *   current variant is unknown.
+     */
     fun <T> accept(visitor: Visitor<T>): T =
         when {
             spend != null -> visitor.visitSpend(spend)
@@ -99,6 +123,14 @@ private constructor(
 
     private var validated: Boolean = false
 
+    /**
+     * Validates that the types of all values in this object match their expected types recursively.
+     *
+     * This method is _not_ forwards compatible with new types from the API for existing fields.
+     *
+     * @throws RainInvalidDataException if any value type in this object doesn't match its expected
+     *   type.
+     */
     fun validate(): IssuingTransaction = apply {
         if (validated) {
             return@apply
@@ -482,6 +514,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws RainInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Spend = apply {
             if (validated) {
                 return@apply
@@ -1615,6 +1656,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws RainInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
             fun validate(): InnerSpend = apply {
                 if (validated) {
                     return@apply
@@ -1781,6 +1832,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws RainInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
                 fun validate(): CardType = apply {
                     if (validated) {
                         return@apply
@@ -1923,6 +1984,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws RainInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
                 fun validate(): Status = apply {
                     if (validated) {
                         return@apply
@@ -2244,6 +2315,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws RainInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Collateral = apply {
             if (validated) {
                 return@apply
@@ -2715,6 +2795,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws RainInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
             fun validate(): InnerCollateral = apply {
                 if (validated) {
                     return@apply
@@ -3005,6 +3095,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws RainInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Payment = apply {
             if (validated) {
                 return@apply
@@ -3498,6 +3597,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws RainInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
             fun validate(): InnerPayment = apply {
                 if (validated) {
                     return@apply
@@ -3634,6 +3743,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws RainInvalidDataException if any value type in this object doesn't match
+                 *   its expected type.
+                 */
                 fun validate(): Status = apply {
                     if (validated) {
                         return@apply
@@ -3915,6 +4034,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws RainInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Fee = apply {
             if (validated) {
                 return@apply
@@ -4216,6 +4344,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws RainInvalidDataException if any value type in this object doesn't match its
+             *   expected type.
+             */
             fun validate(): InnerFee = apply {
                 if (validated) {
                     return@apply
