@@ -5,10 +5,14 @@ package com.rain_sdk.api.errors
 import com.rain_sdk.api.core.JsonValue
 import com.rain_sdk.api.core.checkRequired
 import com.rain_sdk.api.core.http.Headers
+import com.rain_sdk.api.core.jsonMapper
 
 class UnauthorizedException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    RainServiceException("401: $body", cause) {
+    RainServiceException(
+        "401: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 401
 
