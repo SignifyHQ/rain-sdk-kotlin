@@ -1,7 +1,7 @@
 # Rain Kotlin API Library
 
 [![Maven Central](https://img.shields.io/maven-central/v/com.rain_sdk.api/rain-kotlin)](https://central.sonatype.com/artifact/com.rain_sdk.api/rain-kotlin/0.0.1)
-[![javadoc](https://javadoc.io/badge2/com.rain_sdk.api/rain-kotlin/0.0.1/javadoc.svg)](https://javadoc.io/doc/com.rain_sdk.api/rain-kotlin/0.0.1)
+[![javadoc](https://javadoc.io/badge2/com.rain_sdk.api/rain-kotlin/javadoc.svg)](https://javadoc.io/doc/com.rain_sdk.api/rain-kotlin/0.0.1)
 
 The Rain Kotlin SDK provides convenient access to the Rain REST API from applications written in Kotlin.
 
