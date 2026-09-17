@@ -11,7 +11,7 @@ configure<PublishingExtension> {
             pom {
                 name.set("Issuing API")
                 description.set("This is the specification for Rain's Issuing API.")
-                url.set("https://www.github.com/stainless-sdks/rain-hello-world-kotlin")
+                url.set("https://www.github.com/SignifyHQ/rain-sdk-kotlin")
 
                 licenses {
                     license {
@@ -27,9 +27,9 @@ configure<PublishingExtension> {
                 }
 
                 scm {
-                    connection.set("scm:git:git://github.com/stainless-sdks/rain-hello-world-kotlin.git")
-                    developerConnection.set("scm:git:git://github.com/stainless-sdks/rain-hello-world-kotlin.git")
-                    url.set("https://github.com/stainless-sdks/rain-hello-world-kotlin")
+                    connection.set("scm:git:git://github.com/SignifyHQ/rain-sdk-kotlin.git")
+                    developerConnection.set("scm:git:git://github.com/SignifyHQ/rain-sdk-kotlin.git")
+                    url.set("https://github.com/SignifyHQ/rain-sdk-kotlin")
                 }
 
                 versionMapping {
